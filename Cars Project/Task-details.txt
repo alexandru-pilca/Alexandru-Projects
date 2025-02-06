@@ -1,0 +1,32 @@
+Task is to write Oracle script which will execute following sub-tasks:
+ 
+1. Create a table CARS with following columns and these data types:
+ 
+Brand                    VARCHAR2
+Model                    VARCHAR2
+Date_of_manufacturing    DATE
+Color                    VARCHAR2
+Number_of_doors          NUMBER
+ 
+(Besides these, table needs to also contain primary key column. Number_of_doors column is not mandatory, all of the other columns are mandatory).
+ 
+2. Insert 3 rows in the table with some dummy data. Date_of_manufacturing column should contain the entire date with some valid day and month (Can use AI to generate the data).
+ 
+3. Write PL/SQL function which will be used to update specific car in the table. These are requirements:
+Function's signature should containe these arguments:
+ 
+P_ID,
+P_MODEL,
+P_DATE_OF_MANUF.
+ 
+Function should return NUMBER data type.
+ 
+Data types of all arguments needs to be the same as data types in the table (use ROWTYPE attribute when specifying signature).
+Function should update the table with the values passed in.
+It should return the YEAR compoment of the new Date_of_manufacturing in number format.
+ 
+After declaring this function, call it with specific values and row needs to be updated with these new values.
+ 
+At the end script should output the new year with dbms_output. This call should not be inside the function.
+ 
+Create a new repository on you Github account and put the script file there.
