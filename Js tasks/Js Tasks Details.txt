@@ -1,0 +1,63 @@
+Exercise 1: Advanced Object Manipulation
+
+Concepts: Objects, Accessing Values, Calling Methods
+
+Instructions:
+Create an object library that stores an array of books. Each book is an object with properties: title, author, and isRead (boolean).
+Add a method listBooks() that logs all book titles.
+Add a method markAsRead(title) that updates isRead to true for the given book.
+Test the methods by marking a book as read and listing the books again.
+
+
+Exercise 2: Dynamic Object Modification
+
+Concepts: Objects, Accessing Values, DOM Manipulation
+
+Instructions:
+Create an object profile with properties: name, age, and country.
+Create an HTML form with three <input> fields matching the properties.
+Add a button that, when clicked, updates the profile object with input values and displays them on the page.
+
+HTML Structure:
+<input id="name" placeholder="Enter Name"><input id="age" placeholder="Enter Age"><input id="country" placeholder="Enter Country"><button id="updateBtn">Update Profile</button><p id="output"></p>
+
+
+Exercise 3: Create a Dynamic List and Add Items
+
+Concepts: DOM Manipulation, Calling Methods
+
+Instructions:
+Create an empty <ul> in your HTML with an ID todoList.
+Add an <input> field and a button labeled "Add Task".
+When the button is clicked, create a new <li> containing the input value and a "Remove" button.
+Clicking "Remove" should delete the corresponding <li>
+
+HTML Structure:
+<input id="taskInput" placeholder="Enter task"><button id="addTask">Add Task</button><ul id="todoList"></ul>
+
+
+Exercise 4: Traversing the DOM and Highlighting Items
+
+Concepts: Traversing DOM, Event Listeners
+
+Instructions:
+Create an HTML list with five <li> items inside a <ul>.
+Use JavaScript to add a click event to each <li>.
+When clicked, change the background color of the clicked item to yellow.
+Clicking a different item should remove the highlight from the previous one.
+ 
+HTML Structure:
+<ul id="colorList"><li>Item 1</li><li>Item 2</li><li>Item 3</li><li>Item 4</li><li>Item 5</li></ul>
+
+
+Exercise 5: Countdown Timer with DOM Updates
+
+Concepts: DOM Manipulation, Calling Methods
+
+Instructions:
+Create an HTML button labeled "Start Timer".
+When clicked, start a countdown from 10 to 0 displayed in a <p> element.
+Once it reaches 0, display "Time's up!" instead.
+ 
+HTML Structure:
+<button id="startTimer">Start Timer</button><p id="timer"></p>
