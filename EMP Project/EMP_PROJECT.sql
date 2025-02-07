@@ -118,10 +118,18 @@ END GET_EMP_NAME;
 CREATE OR REPLACE PROCEDURE GET_EMP_RECORD(p_employee_id IN employees.employee_id%TYPE)
 IS
 v_emp_rec employees%ROWTYPE;
+<<<<<<< HEAD
 
+=======
+v_emp_count number;
+>>>>>>> 3235e603e6ffbf4cd462978fdfb53d0e753296e2
 
 BEGIN
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3235e603e6ffbf4cd462978fdfb53d0e753296e2
     SELECT * INTO v_emp_rec
     FROM EMPLOYEES
     WHERE employee_id = p_employee_id;
@@ -131,8 +139,13 @@ DBMS_OUTPUT.PUT_LINE('Employee Found: ' || v_emp_rec.first_name || ' ' || v_emp_
 
 
 EXCEPTION
+<<<<<<< HEAD
 WHEN OTHERS THEN
 DBMS_OUTPUT.PUT_LINE('Employee cannot be retreived');
+=======
+WHEN NO_DATA_FOUND THEN
+DBMS_OUTPUT.PUT_LINE('Employee Not Found');
+>>>>>>> 3235e603e6ffbf4cd462978fdfb53d0e753296e2
 
 END GET_EMP_RECORD;
 
