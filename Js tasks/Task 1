@@ -22,13 +22,4 @@ const library = {
 };
 
 
-console.log('Books in library:');
-library.listBooks();
-
-console.log('Marking "1984" as read.');
-library.markAsRead('1984');
-
-console.log('Books in library after updating:');
-library.listBooks();
-
 
