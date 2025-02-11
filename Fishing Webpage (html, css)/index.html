@@ -8,29 +8,32 @@
 </head>
 <body>
   
-
-    <img src="Images/fishing logo.jpg" height="100" title="Fishing Logo">
-
-    
-    <h1 id="title">My Fishing Website</h1>
-
-<br>
-
-<dir>
-
-    <audio controls src="fishing song.m4a"></audio>
-</dir>
-
-    <br>
-
-  
+    <div class="logoAudio">
+        <img src="Images/fishing logo.jpg" id="logo" height="200" title="Fishing Logo">
+        <h1 id="title">My Fishing Website</h1>
+        <br>
+        <div id="audio-container">
+            <audio controls src="fishing song.m4a"></audio>
+        </div>
+        <br>
+    </div>
 
 </dir>
 
-    <p >Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia facere laboriosam, delectus eaque consequuntur optio magnam minima doloribus officiis dolor odit dicta adipisci a magni, quam, placeat corrupti cumque nesciunt?</p>
-<form >
+    <p >Fishing is more than just a hobby; it's a way of life. For many, it's the perfect blend of serenity and excitement. The gentle lapping of water against the boat, the feel of the cool morning breeze on your face, and the anticipation of that first tug on the line—all combine to create an experience that is both soothing and exhilarating.
 
-    <h1>REGISTER</h1>
+        It's a chance to escape the hustle and bustle of daily life and reconnect with nature. Whether you're casting a line in a tranquil lake, a flowing river, or the vast open sea, the act of fishing allows you to immerse yourself in the beauty of the outdoors. It's a time for reflection, for quiet contemplation, and for appreciating the simple pleasures of life.
+        
+       But fishing is also about the thrill of the chase. The moment you feel that tug on your line, your senses come alive. Your heart races as you reel in your catch, unsure of what might be at the other end. Each fish is a new challenge, a new story to tell. The camaraderie shared with fellow anglers, the tales of the ones that got away, and the satisfaction of a successful day on the water all contribute to the deep sense of fulfillment that fishing brings.
+        
+        For some, fishing is a way to bond with family and friends, passing down traditions and creating lasting memories. For others, it's a solitary pursuit, a chance to find peace and solitude in a chaotic world. Regardless of why you fish, the passion it ignites is universal. It's a timeless pursuit that connects us to the natural world and to each other in a way that few other activities can.
+        
+       So cast your line, embrace</p>
+     
+</body>
+<form  class="form-container">
+
+    <h1 id="reg">REGISTER</h1>
 
     <br>
 
@@ -66,27 +69,29 @@
 
     
     <br>
-
-<div>
-    <a href="page 2.html" >
-        <button style="background-color: black; color: greenyellow">Submit</button>
-    </a>
-</div>
-
+    <div class="container">
+        <a>
+            <button style="background-color: black; color: greenyellow" title="Submit Details">Submit</button>
+        </a>
+        <a id="page2" href="page 2.html" target="_self" title="Press Welcome" class="welcome-link">
+            Welcome!!!
+        </a>
+    </div>
+        
+   
 </form>
  
 <br>
-<h3>Required equipment</h3>
-
-<ol>
-    <li>Fishing Rod</li>
-    <li>Fishing Reel</li>
-    <li>Fishing Net</li>
-    <li>Fishing Line</li>
-    <li>Fishing Hooks</li>
-    <li>Fishing Bait</li>
-</ol>
-</body>
-
+<form class="equ-container">
+    <h3>Required equipment</h3>
+    <ol>
+      <li><input type="checkbox" id="rod">Fishing Rod</li>
+      <li><input type="checkbox" id="reel">Fishing Reel</li>
+      <li><input type="checkbox" id="net">Fishing Net</li>
+      <li><input type="checkbox" id="line">Fishing Line</li>
+      <li><input type="checkbox" id="hooks">Fishing Hooks</li>
+      <li><input type="checkbox" id="bait">Fishing Bait</li>
+    </ol>
+  </form>
 
 </html>
