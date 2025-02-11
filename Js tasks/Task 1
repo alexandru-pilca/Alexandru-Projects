@@ -20,3 +20,25 @@ const library = {
       }
   }
 };
+
+
+DECLARE
+    TYPE t_obj IS TABLE OF VARCHAR2(100) INDEX BY VARCHAR2(100);
+    v_obj t_obj;
+    
+    v_idx VARCHAR2(100);
+BEGIN    
+
+    v_obj('title') := '1984';
+    v_obj('year') := '2001';
+    v_obj('author') := 'Alex';
+    
+    v_idx := v_obj.FIRST;
+    
+    WHILE v_idx IS NOT NULL
+    LOOP
+        dbms_output.put_line(v_obj(v_idx));
+        v_idx := v_obj.NEXT(v_idx);
+    END LOOP;
+END;
+/
