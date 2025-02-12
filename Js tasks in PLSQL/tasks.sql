@@ -91,12 +91,12 @@ CREATE TABLE TIMER(
 );
 
 create or replace package items_timer AS
-procedure ins_item(item_name in p_item_name),
-procedure ins_timer(timer_id in p_timer_id, p_start_time IN NUMBER);
+procedure ins_item(p_item_name in items.item_name%type),
+procedure ins_timer(p_timer_id in timer.timer_id%type, p_start_time IN NUMBER);
 
 create or replace package body items_timer AS
 
-create or replace procedure ins_item(item_name in p_item_name)
+create or replace procedure ins_item(p_item_name in items.item_name%type)
 is
 Begin
 insert into items (item_name)
@@ -105,7 +105,7 @@ value (p_item_name);
 commit;
 end ins_item;
 
-create or replace procedure ins_timer(timer_id in p_timer_id, p_start_time IN NUMBER)
+create or replace procedure ins_timer(p_timer_id in  timer.timer_id%type, p_start_time IN NUMBER)
 is
 Begin
 insert into timer(timer_id, start_timer)
