@@ -16,9 +16,7 @@ BEGIN
     LOOP
         FETCH books_cursor INTO books_rec;
         EXIT WHEN books_cursor%NOTFOUND;
-        DBMS_OUTPUT.PUT_LINE(books_rec.title);
-        DBMS_OUTPUT.PUT_LINE(books_rec.author);
-        DBMS_OUTPUT.PUT_LINE(books_rec.is_read);
+        DBMS_OUTPUT.PUT_LINE(books_rec.title || ' - ' || books_rec.author || ' - ' || books_rec.is_read);
         END LOOP;
         CLOSE books_cursor;
 END LIST_BOOKS;         
@@ -40,7 +38,7 @@ CREATE OR REPLACE PROCEDURE UPD_PROFILE(
 )
 AS
 BEGIN
-    INSERT INTO
+    INSERT INTO PROFILES
     (name, age, country)
     VALUES (p_name, p_age, p_country);
 
@@ -56,6 +54,7 @@ CREATE table tasks(
 create or replace package upd_del_tasks AS
 PROCEDURE add_task(task_name in varchar2),
 procedure del_task(task_id in number);
+END upd_del_tasks;
 
 CREATE OR REPLACE PACKAGE BODY upd_del_tasks AS
 create or replace procedure add_task(task_name in varchar2)
@@ -82,18 +81,18 @@ END upd_del_tasks;
 --Task 4, 5
 
 CREATE TABLE ITEMS(
-    item_id number,
+    item_id number primary key,
     item_name varchar2(100)
 );
 
 CREATE TABLE TIMER(
-    timer_id number,
+    timer_id number primary key,
     start_time number
 );
 
 create or replace package items_timer AS
 procedure ins_item(item_name in p_item_name),
-procedure ins_timer(timer_id in p_timer_id);
+procedure ins_timer(timer_id in p_timer_id, p_start_time IN NUMBER);
 
 create or replace package body items_timer AS
 
@@ -106,7 +105,7 @@ value (p_item_name);
 commit;
 end ins_item;
 
-create or replace procedure ins_timer(timer_id in p_timer_id)
+create or replace procedure ins_timer(timer_id in p_timer_id, p_start_time IN NUMBER)
 is
 Begin
 insert into timer(timer_id, start_timer)
