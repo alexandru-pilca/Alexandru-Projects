@@ -52,11 +52,12 @@ CREATE table tasks(
 );
 
 create or replace package upd_del_tasks AS
-PROCEDURE add_task(task_name in varchar2),
+PROCEDURE add_task(task_name in varchar2);
 procedure del_task(task_id in number);
 END upd_del_tasks;
 
 CREATE OR REPLACE PACKAGE BODY upd_del_tasks AS
+
 create or replace procedure add_task(task_name in varchar2)
 IS
 Begin

@@ -13,7 +13,7 @@ CREATE TABLE FISHING_USERS(
     p_last_name IN FISHING_USERS.last_name%TYPE,
     p_email IN FISHING_USERS.email%TYPE,
     p_phone IN FISHING_USERS.phone%TYPE
-);
+)
 is 
 Begin
 insert into FISHING_USERS( user_id, first_name, last_name, email, phone)
