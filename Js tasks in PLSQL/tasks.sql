@@ -58,7 +58,7 @@ END upd_del_tasks;
 
 CREATE OR REPLACE PACKAGE BODY upd_del_tasks AS
 
-create or replace procedure add_task(task_name in varchar2)
+ procedure add_task(task_name in varchar2)
 IS
 Begin
 insert into tasks (task) 
@@ -68,7 +68,7 @@ values (task_name);
 commit;
 end add_task;
 
-create or replace procedure del_task(task_id in number)
+ procedure del_task(task_id in number)
 IS
 Begin
 DELETE from tasks 
@@ -92,12 +92,12 @@ CREATE TABLE TIMER(
 );
 
 create or replace package items_timer AS
-procedure ins_item(p_item_name in items.item_name%type),
+procedure ins_item(p_item_name in items.item_name%type);
 procedure ins_timer(p_timer_id in timer.timer_id%type, p_start_time IN NUMBER);
 
 create or replace package body items_timer AS
 
-create or replace procedure ins_item(p_item_name in items.item_name%type)
+ procedure ins_item(p_item_name in items.item_name%type)
 is
 Begin
 insert into items (item_name)
@@ -106,7 +106,7 @@ value (p_item_name);
 commit;
 end ins_item;
 
-create or replace procedure ins_timer(p_timer_id in  timer.timer_id%type, p_start_time IN NUMBER)
+ procedure ins_timer(p_timer_id in  timer.timer_id%type, p_start_time IN NUMBER)
 is
 Begin
 insert into timer(timer_id, start_timer)
