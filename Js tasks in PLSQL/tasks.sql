@@ -60,8 +60,8 @@ create or replace procedure add_task(task_name in varchar2)
 IS
 Begin
 insert into tasks (task) 
-values (task_name)
-where id = task_id;
+values (task_name);
+
 
 commit;
 end add_task;
@@ -78,3 +78,39 @@ end del_task;
 END upd_del_tasks;
 
 --Task 4, 5
+
+CREATE TABLE ITEMS(
+    item_id number,
+    item_name varchar2(100)
+);
+
+CREATE TABLE TIMER(
+    timer_id number,
+    start_time number
+);
+
+create or replace package items_timer AS
+procedure ins_item(item_name in p_item_name),
+procedure ins_timer(timer_id in p_timer_id);
+
+create or replace package body items_timer AS
+
+create or replace procedure ins_item(item_name in p_item_name)
+is
+Begin
+insert into items (item_name)
+value (p_item_name);
+
+commit;
+end ins_item;
+
+create or replace procedure ins_timer(timer_id in p_timer_id)
+is
+Begin
+insert into timer(timer_id, start_timer)
+values (p_timer_id, p_start_timer);
+
+commit;
+end ins_timer
+
+end items_timer;
