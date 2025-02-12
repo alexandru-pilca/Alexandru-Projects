@@ -8,7 +8,7 @@ create table books(
 CREATE OR REPLACE PROCEDURE LIST_BOOKS 
 IS
 CURSOR BOOKS_CURSOR IS
-SELECT TITLE FROM BOOKS;
+SELECT TITLE, Author,is_read FROM BOOKS;
 books_rec books_cursor%ROWTYPE;
 
 BEGIN
@@ -17,6 +17,8 @@ BEGIN
         FETCH books_cursor INTO books_rec;
         EXIT WHEN books_cursor%NOTFOUND;
         DBMS_OUTPUT.PUT_LINE(books_rec.title);
+        DBMS_OUTPUT.PUT_LINE(books_rec.author);
+        DBMS_OUTPUT.PUT_LINE(books_rec.is_read);
         END LOOP;
         CLOSE books_cursor;
 END LIST_BOOKS;         
