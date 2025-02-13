@@ -100,7 +100,9 @@ PROCEDURE ins_emp (
     p_salary in number,
     p_job_title in  VARCHAR2,
     p_hire_date in  date
-);
+)
+ IS
+
 Begin
 insert into employees (first_name, last_name, hire_date, job_title,salary)
 values ( p_first_name, p_last_name, p_hire_date, p_job_name, p_salary);
@@ -123,8 +125,19 @@ END ins_emp;
 
 
 
-PROCEDURE upd_emp (p_emp_id in employees.emp_id%type);
+PROCEDURE upd_emp (
+  p_emp_id in employees.emp_id%type,
+  p_first_name IN employees.first_name%TYPE,
+  p_last_name IN employees.last_name%TYPE,
+  p_hire_date IN employees.hire_date%TYPE,
+  p_salary IN employees.salary%TYPE,
+  p_dep_name IN employees.dep_name%TYPE
+ )
+
+ is
+
 Begin
+
 update employees
 SET
 first_name = p_first_name,
@@ -135,14 +148,20 @@ dep_name = p_dep_name
 where emp_id = p_emp_id;
 
 if sql%NOTFOUND THEN
+
 DBMS_OUTPUT.PUT_LINE('No emp found for the given ID or no update was made.');
+
+ELSE
+        DBMS_OUTPUT.PUT_LINE('Employee updated successfully.');
 and if;
 end upd_emp;
 
 
 
 PROCEDURE del_emp(p_emp_id in emp.emp_id%type)
+
 IS
+
 Begin
 DELETE from employees
 where emp_id = p_emp_id;
@@ -208,7 +227,9 @@ END;
 --8. CREATE PROCEDURE TO CALCULATE BONUS FOR EMPLOYEES
 
 CREATE OR REPLACE PROCEDURE GET_SALARY_BONUS 
+
 IS
+
 cursor c_salary is select salary from EMP_DEP_VW where salary >= 2000;
  
  begin 
@@ -323,7 +344,7 @@ end CHECK_SALARY;
   p_task_1 varchar2,
  p_task_2 varchar2,
  p_task_3 varchar2
-);
+)
 
 is
 
@@ -340,3 +361,114 @@ end ins_tasks;
 BEGIN
   ins_tasks('Alexandru', 'Development', 'Write pl/sql code', 'Populate with data', 'Execute procedure');
 END;
+
+
+
+--12. INSERT PROCEDURE USING BULK COLLECT and GET THE COUNT OF EMP NAME
+
+CREATE TABLE EMPNAME AS 
+SELECT EMP_ID, FIRST_NAME ||' '|| LAST_NAME NAME
+FROM EMPLOYEES;
+
+
+DECLARE
+TYPE t_ename is table of varchar2(100) index by pls_integer;
+ v_ename t_ename;
+
+
+ procedure get_empName_count(p_emp_count OUT number)
+ 
+  is
+
+ begin
+
+ select count(*) into p_emp_count
+ from EMPNAME
+ where emp_id is not null;
+
+ end get_empName_count;
+
+ 
+ emp_count number; --variable to store count from the procedure
+
+ begin
+
+ get_empName_count(emp_count);
+    DBMS_OUTPUT.PUT_LINE('Total Employee Names: ' || emp_count);
+
+
+ select  name  bulk collect into v_ename
+ from EMPNAME;
+
+ for i in v_ename.first..v_ename.last
+ loop
+ DBMS_OUTPUT.PUT_LINE(v_ename(i));
+ end loop;
+
+ end;
+
+
+--13. CREATE TRIGGER TO INS, UPD OR DEL DATA FROM JURNAL TABLE EMP
+
+CREATE TABLE EMPLOYEES_JN (
+  EMP_ID NUMBER PRIMARY KEY ,
+    FIRST_NAME VARCHAR2(100) NOT NULL,
+    LAST_NAME VARCHAR2(100)  NOT NULL,
+    HIRE_DATE DATE  NOT NULL,
+    SALARY NUMBER  NOT NULL,
+    JOB_TITLE VARCHAR2(100)  NOT NULL,
+    DEP_ID NUMBER  NOT NULL,
+    JN_DATETIME DATE,
+  JN_SESSION VARCHAR2(100),
+  JN_OPERATION VARCHAR2(10)
+
+);
+
+CREATE OR REPLACE TRIGGER EMP_JNTRG 
+AFTER
+INSERT OR
+UPDATE OR
+DELETE ON EMPLOYEES
+FOR EACH ROW
+
+DECLARE
+v_rec employees_jr%ROWTYPE;
+v_blank employees_jr%ROWTYPE;
+
+begin
+v_rec := v_blank;
+
+if inserting or UPDATING then
+v_rec.emp_id := NEW.emp_id;
+v_rec.first_name := NEW.first_name:
+v_rec.last_name := new.last_name;
+v_rec.hire_date := new.hire_date;
+v_rec.salary :=  new.salary;
+v_rec.job_title := new.job_title;
+v_rec.dep_id := new.dep_id;
+v_rec.JN_DATETIME := SYSDATE;
+v_rec.JN_SESSION := SYS_CONTEXT ('USERENV', 'SESSIONID'); 
+
+if inserting then 
+v_rec.JN_OPERATION := 'INS';
+ELSIF UPDATING THEN
+v_rec.JN_OPERATION := 'UPD';
+end if;
+
+elsif deleting then
+v_rec.emp_id := old.emp_id;
+v_rec.first_name := old.first_name:
+v_rec.last_name := old.last_name;
+v_rec.hire_date := old.hire_date;
+v_rec.salary :=  old.salary;
+v_rec.job_title := old.job_title;
+v_rec.dep_id := old.dep_id;
+v_rec.JN_DATETIME := SYSDATE;
+v_rec.JN_SESSION := SYS_CONTEXT ('USERENV', 'SESSIONID'); 
+v_rec.JN_OPERATION := 'DEL'
+
+end if;
+
+insert into EMPLOYEES_JN value v_rec;
+
+end;
