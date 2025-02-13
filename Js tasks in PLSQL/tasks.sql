@@ -94,6 +94,7 @@ CREATE TABLE TIMER(
 create or replace package items_timer AS
 procedure ins_item(p_item_name in items.item_name%type);
 procedure ins_timer(p_timer_id in timer.timer_id%type, p_start_time IN NUMBER);
+END items_timer;
 
 create or replace package body items_timer AS
 
