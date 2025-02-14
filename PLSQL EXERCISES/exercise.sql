@@ -68,6 +68,9 @@ values ( 'Satomi', 'Pilca', TO_DATE('2022-10-05', 'YYYY-MM-DD'), 102, 'dancer', 
 insert into emp ( first_name, last_name, HIRE_DATE, dep_id, job_title, salary)
 values ( 'Ion', 'Balea', TO_DATE('2022-03-25', 'YYYY-MM-DD'), 103, 'IT', 3200);
 
+insert into emp ( first_name, last_name, HIRE_DATE, dep_id, job_title, salary)
+values ( 'Paul', 'Tudor', TO_DATE('2012-03-05', 'YYYY-MM-DD'), 103, 'IT', 4000);
+
 insert into dep ( dep_name, location)
 values ( 'CODE', 'Romania');
 
@@ -296,7 +299,10 @@ BEGIN
 
   end;
 
+
+
   --10. Write a PL/SQL procedure to accepts a BOOLEAN parameter and uses a CASE statement 
+
 
   CREATE OR REPLACE PROCEDURE CHECK_SALARY(p_check BOOLEAN)
      IS
@@ -332,7 +338,7 @@ end CHECK_SALARY;
  INCREMENT 1;
 
 
- create TYPE t_tasks IS TABLE OF VARCHAR2(100);
+  create TYPE t_tasks IS TABLE OF VARCHAR2(100);
 
 
  ALTER TABLE EMP
@@ -470,5 +476,125 @@ v_rec.JN_OPERATION := 'DEL'
 end if;
 
 insert into EMPLOYEES_JN value v_rec;
+
+end;
+
+--14. WRITE BASIC LOOP TO OUTPUT EMPLOYEE FIRST_NAME || LAST_NAME
+
+
+declare 
+type t_name is table of varchar2(100);
+v_counter number := 0;
+v_t_name t_name;
+
+begin
+select first_name || ' '|| last_name 
+bulk collect
+into v_t_name
+from EMPLOYEES;
+
+loop
+v_counter := v_counter + 1;
+DBMS_OUTPUT.PUT_LINE(v_t_name (v_counter));
+
+exit when v_counter > 3;
+end loop;
+
+end;
+
+
+
+--15. USE WHILE LOOP TO UPDATE THE SALARY AND OUTPUT IT
+
+
+DECLARE 
+v_emp_id number := 1;
+v_ename employees.first_name%type;
+V_salary number;
+
+begin
+
+while v_emp_id <= 5
+loop
+
+update employees
+set salary = salary + 100
+where emp_id = v_emp_id;
+
+insert into v_salary
+values (salary)
+from employees
+where emp_id = v_emp_id;
+
+DBMS_OUTPUT.PUT_LINE(v_ename||': '||v_salary);
+
+v_emp_id:= v_emp_id + 1;
+
+end loop;
+
+end;
+
+
+
+--16. USE FOR LOOP TO OUTPUT DEP WITH EMPLOYEE NAME and use associative array to store the dep_id
+
+
+DECLARE 
+type t_dep is table of departments.dep_id%type index by pls_integer ;
+v_ename employees.first_name%type;
+v_dep_id t_dep;
+
+begin
+ 
+
+select dep_id
+bulk collect into v_dep_id
+from departments;
+
+for i in v_dep_id.first .. v_dep_id.last 
+Loop
+
+select first_name||' '||last_name
+into v_ename
+from employees
+where dep_id =v_dep_id(i);
+
+DBMS_OUTPUT.PUT_LINE('Dep '||v_dep_id(i)||' contains employee: '||v_ename);
+
+end loop;
+end;
+
+
+
+
+--17. FETCH THE EMPLOYEE NAME , SALARY AND JOB NAME FROM EMPLOYEES TABLE WHERE DEP_ID COMES FROM A FUNCTION USING CURSOR WITH PARAMETER
+
+CREATE OR REPLACE FUNCTION GET_DEP_ID( p_emp_id NUMBER)
+RETURN NUMBER
+is
+V_DEP NUMBER;
+
+BEGIN
+  SELECT DEP_ID INTO V_DEP
+  FROM EMPLOYEES
+  WHERE EMP_ID = p_emp_id;
+
+RETURN V_DEP;
+
+  END;
+
+DECLARE
+p_emp_id EMPLOYEES.EMP_ID%TYPE := 0;
+
+BEGIN
+
+for i in (select first_name || ' '||last_name as name, salary, job_name
+from employees
+where DEP_ID = GET_DEP_ID(p_emp_id)
+) loop
+
+DBMS_OUTPUT.PUT_LINE(i.name||' '||i.salary||' '||i.job);
+
+end loop;
 
 end;
