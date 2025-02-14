@@ -536,17 +536,17 @@ end;
 
 
 
---16. USE FOR LOOP TO OUTPUT DEP WITH EMPLOYEE NAME and use nested table to store the dep_id
+--16. USE FOR LOOP TO OUTPUT DEP WITH EMPLOYEE NAME and use associative array to store the dep_id
+
 
 DECLARE 
-type t_dep is table of departments.dep_id%type  ;
+type t_dep is table of departments.dep_id%type index by pls_integer ;
 v_ename employees.first_name%type;
 v_dep_id t_dep;
 
 begin
  
- v_de_id := t_dep();
- 
+
 select dep_id
 bulk collect into v_dep_id
 from departments;
@@ -567,3 +567,34 @@ end;
 
 
 
+--17. FETCH THE EMPLOYEE NAME , SALARY AND JOB NAME FROM EMPLOYEES TABLE WHERE DEP_ID COMES FROM A FUNCTION USING CURSOR WITH PARAMETER
+
+CREATE OR REPLACE FUNCTION GET_DEP_ID( p_emp_id NUMBER)
+RETURN NUMBER
+is
+V_DEP NUMBER;
+
+BEGIN
+  SELECT DEP_ID INTO V_DEP
+  FROM EMPLOYEES
+  WHERE EMP_ID = p_emp_id;
+
+RETURN V_DEP;
+
+  END;
+
+DECLARE
+p_emp_id EMPLOYEES.EMP_ID%TYPE := 0;
+
+BEGIN
+
+for i in (select first_name || ' '||last_name as name, salary, job_name
+from employees
+where DEP_ID = GET_DEP_ID(p_emp_id)
+) loop
+
+DBMS_OUTPUT.PUT_LINE(i.name||' '||i.salary||' '||i.job);
+
+end loop;
+
+end;
