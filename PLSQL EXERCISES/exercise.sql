@@ -598,3 +598,6 @@ DBMS_OUTPUT.PUT_LINE(i.name||' '||i.salary||' '||i.job);
 end loop;
 
 end;
+
+
+
