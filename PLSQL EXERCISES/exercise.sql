@@ -627,7 +627,7 @@ end loop;
 end;
 
 
---Create a Procedure to Get Employee Names: Write a procedure that retrieves and prints the names of all employees from the EMPLOYEES table.
+--18. Create a Procedure to Get Employee Names: Write a procedure that retrieves and prints the names of all employees from the EMPLOYEES table.
 
  create or replace procedure get_all_emp_name IS
  cursor c_emp is select first_name||' '||last_name as full_name from employees;
@@ -648,7 +648,7 @@ end get_all_emp_name;
 
 
 
---Create a Function to Calculate Employee Age: Write a function that takes an employee's ID as input and returns the employee's age based on their date of birth.
+--19. Create a Function to Calculate Employee Age: Write a function that takes an employee's ID as input and returns the employee's age based on their date of birth.
 
 create or replace function get_emp_ages(p_emp_id employees.employee_id%type) return number
 is
@@ -682,7 +682,7 @@ END;
 /
 
 
---Create a Procedure to Update Employee Salary: Write a procedure that updates the salary of an employee based on their ID and a new salary value provided as input.
+--20. Create a Procedure to Update Employee Salary: Write a procedure that updates the salary of an employee based on their ID and a new salary value provided as input.
 
 create or replace procedure upd_emp_sal(p_emp_id employees.employee_id%type , p_sal employees.salary%type)
 IS
@@ -698,7 +698,7 @@ BEGIN
 
 
 
---Create a Trigger to Log Updates: Write a trigger that logs any updates made to the EMPLOYEES table into a EMPLOYEE_LOG table.
+--21. Create a Trigger to Log Updates: Write a trigger that logs any updates made to the EMPLOYEES table into a EMPLOYEE_LOG table.
 
 create or replace trigger emp_log 
 AFTER
@@ -750,7 +750,7 @@ end;
 
 
 
---Create a Procedure to Delete Old Records: Write a procedure that deletes records from the EMPLOYEES table that are older than a specified number of years.
+--22. Create a Procedure to Delete Old Records: Write a procedure that deletes records from the EMPLOYEES table that are older than a specified number of years.
 
 
 create or replace procedure del_oldEmployees (
@@ -777,7 +777,7 @@ end del_oldEmployees;
 
 
 
---Create a Function to Get Department Name: Write a function that takes a department ID as input and returns the name of the department.
+--23. Create a Function to Get Department Name: Write a function that takes a department ID as input and returns the name of the department.
 
 
 create or replace function get_dep_name(p_dep_id departments.dep_id%type) return varchar2
@@ -804,7 +804,7 @@ end get_dep_name;
 
 
 
---Create a Procedure to Transfer Employees: Write a procedure that transfers an employee from one department to another based on employee ID and new department ID.
+--24. Create a Procedure to Transfer Employees: Write a procedure that transfers an employee from one department to another based on employee ID and new department ID.
 
 
 
@@ -858,7 +858,7 @@ end transfer_emp;
 
 
 
---Create a Function to Calculate Total Salary: Write a function that calculates and returns the total salary of all employees in a specific department.
+--25. Create a Function to Calculate Total Salary: Write a function that calculates and returns the total salary of all employees in a specific department.
 
 
 
@@ -881,7 +881,7 @@ end get_total_sal;
 
 
 
---Create a Procedure to Insert New Employee: Write a procedure that inserts a new employee record into the EMPLOYEES table.
+--26. Create a Procedure to Insert New Employee: Write a procedure that inserts a new employee record into the EMPLOYEES table.
 
 create or replace procedure ins_new_emp (
   p_first_name employees.first_name%type,
@@ -908,7 +908,7 @@ end ins_new_emp;
 
 
 
---Create a Procedure to Generate Employee Report: Write a procedure that generates a report of all employees, including their ID, name, department, and salary, and stores it in a temporary table.
+--27. Create a Procedure to Generate Employee Report: Write a procedure that generates a report of all employees, including their ID, name, department, and salary, and stores it in a temporary table.
 
 create gčobač temporary table employee_repot(
   emp_id number,
