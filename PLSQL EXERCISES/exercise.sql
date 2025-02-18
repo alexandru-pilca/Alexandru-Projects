@@ -936,3 +936,314 @@ INSERT INTO EMPLOYEE_REPORT (emp_id, emp_name, dep_name, salary)
     DBMS_OUTPUT.PUT_LINE('Employee report generated successfully.');
 
     end  generate_emp_report;
+
+
+
+
+    --28. Hello World: Create a PL/SQL block that outputs "Hello World!".
+declare
+v_hello := 'Hello World!';
+begin
+
+for i in 1..5 loop
+dbms_output.put_line(v_hello);
+end loop;
+
+end;
+
+
+
+
+  --29. Simple Calculator: Write a PL/SQL procedure that performs basic arithmetic operations like addition, subtraction, multiplication, and division.
+
+  create or replace procedure arit_calc(p_emp_id employees.employee_id%type) IS
+
+  v_new_sal number;
+
+begin
+
+select CASE
+when salary > 1000 then salary * 10
+when salary = 3000 then salary / 0.5
+when salary < 5000 then salary + 1000
+elsa salary 
+end
+into v_new_sal
+from employees
+where employee_id = p_emp_id;
+
+DBMS_OUTPUT.PUT_LINE('New Salary: ' || v_new_sal);
+
+EXCEPTION
+  WHEN NO_DATA_FOUND THEN
+    DBMS_OUTPUT.PUT_LINE('No employee found with ID ' || p_emp_id);
+
+
+end arit_calc;
+
+
+
+/*30. Employee Database:
+
+Create a table to store employee information (name, age, department, salary).
+
+Write a PL/SQL function to calculate the average salary of employees.
+
+Develop a PL/SQL procedure to give a salary raise to all employees in a specific department.*/
+
+create or replace package emp_sal_pck as
+function avg_sal return number;
+procedure sal_raise(p_dep_id number);
+end emp_sal_pck;
+
+create or replace package body emp_sal_pck as
+
+ function avg_sal return number is
+
+v_avg_sal number;
+
+begin
+
+select avg(salary) into v_avg_sal from employees;
+
+return v_avg_sal;
+
+end avg_sal;
+
+ procedure sal_raise(p_dep_id number)IS
+v_new_sal number;
+
+begin
+
+update employees 
+set salary = salary + (salary * 0.5)
+where dep_id = p_dep_id;
+
+end sal_raise;
+
+end emp_sal_pck;
+
+
+
+
+/*31. Student Grades:
+
+Create a table for storing student grades.
+
+Write a PL/SQL function to calculate the GPA of a student.
+
+Develop a PL/SQL procedure to update grades for a specific student.*/
+
+CREATE TABLE student_grades (
+  student_id NUMBER PRIMARY KEY,
+  student_name VARCHAR2(100),
+  subject VARCHAR2(50),
+  grade CHAR(2),  
+  credit_hours NUMBER
+);
+
+INSERT INTO student_grades VALUES (101, 'John Doe', 'Math', 'A', 3);
+INSERT INTO student_grades VALUES (101, 'John Doe', 'Science', 'B', 4);
+INSERT INTO student_grades VALUES (101, 'John Doe', 'History', 'C', 2);
+INSERT INTO student_grades VALUES (102, 'Alice Smith', 'Math', 'B', 3);
+INSERT INTO student_grades VALUES (102, 'Alice Smith', 'Science', 'A', 4);
+
+
+create or replace function calc_gpa(p_student_id number)return NUMBER
+is
+v_gpa number := 0;
+v_total_points number := 0;
+v_total_credit number := 0;
+v_grade_points number;
+
+function grade_to_points(p_grade char) return number IS
+
+begin 
+
+CASE
+  when 'A' then return 4.0;
+  when 'B' then return 3.0;
+  when 'c' then return 2.0;
+  when 'D' then return 1.0;
+  when 'F' then return 0.0;
+  else return null;
+  end case;
+
+  end grade_to_points;
+
+  begin
+
+  for i in (select grade, credit_hours from student_grades where student_id = p_student_id) loop
+  v_grade_points := grade_to_points(i.grade);
+
+  IF v_grade_points IS NOT NULL THEN
+      v_total_points := v_total_points + (v_grade_points * i.credit_hours);
+      v_total_credits := v_total_credits + i.credit_hours;
+    END IF;
+  END LOOP;
+
+  IF v_total_credits > 0 THEN
+    v_gpa := v_total_points / v_total_credits;
+  END IF;
+
+  RETURN v_gpa;
+
+  END calc_gpa;
+
+
+
+  CREATE OR REPLACE PROCEDURE upd_student_grade(
+  p_student_id NUMBER,
+  p_subject VARCHAR2,
+  p_new_grade CHAR
+) IS
+
+BEGIN
+ 
+  UPDATE student_grades
+  SET grade = p_new_grade
+  WHERE student_id = p_student_id AND subject = p_subject;
+
+  DBMS_OUTPUT.PUT_LINE('Grade updated successfully for Student ID: ' || p_student_id);
+
+  end upd_student_grade;
+
+
+
+
+
+
+
+/*32. Inventory Management:
+
+Create tables for products and inventory.
+
+Write a PL/SQL procedure to update the inventory levels when a product is sold.
+
+Develop a PL/SQL function to calculate the total value of the inventory.*/
+
+
+CREATE TABLE products (
+    product_id NUMBER PRIMARY KEY,
+    product_name VARCHAR2(100),
+    price NUMBER
+);
+
+
+CREATE TABLE inventory (
+    product_id NUMBER PRIMARY KEY,
+    quantity NUMBER,  
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
+);
+
+
+create or replace procedure upd_inventory(p_product_id number, p_qty_sold number)
+IS
+v_stock number;
+
+begin
+ 
+ select quantity into v_stock from inventory where product_id = p_product_id; 
+
+ if v_stock >= p_qty_sold then
+ update inventory
+ set quantity = quantity - p_qty_sold
+ where product_id = p_product_id;
+
+ DBMS_OUTPUT.PUT_LINE('Inventory updated successfully.');
+
+ ELSE
+    DBMS_OUTPUT.PUT_LINE('Not enough stock available.');
+  END IF;
+
+  END upd_inventory;
+
+  create or replace function total_inventory_value return number IS
+  v_total_value number;
+
+  begin
+select sum(p.price + i.quantity)
+into v_total_value
+from products p
+join inventory i
+on p.product_id = i.product_id;
+
+return v_total_value;
+
+end total_inventory_value;
+
+
+
+
+
+/*33. Banking Application:
+
+Create tables for customer accounts and transactions.
+
+Write a PL/SQL procedure to transfer money between accounts.
+
+Develop a PL/SQL function to calculate the total balance for a customer.*/
+
+CREATE TABLE customer_accounts (
+    account_id NUMBER PRIMARY KEY,
+    customer_name VARCHAR2(100),
+    balance NUMBER
+);
+
+
+CREATE TABLE transactions (
+    transaction_id NUMBER PRIMARY KEY,
+    from_account_id NUMBER,
+    to_account_id NUMBER,
+    amount NUMBER,
+    transaction_date DATE,
+    FOREIGN KEY (from_account_id) REFERENCES customer_accounts(account_id),
+    FOREIGN KEY (to_account_id) REFERENCES customer_accounts(account_id)
+);
+
+create sequence transactions_seq
+start with 1
+INCREMENT by 1;
+
+
+create or replace procedure transfer_money(
+p_from_account_id number,
+p_to_account_id number,
+p_amount number
+)
+IS
+ v_from_balance number;
+
+begin
+
+select balance into v_from_balance
+from customer_accounts
+where account_id = p_from_account_id;
+
+update customer_accounts
+set balance = balance + p_amount
+where account_id = p_from_account_id;
+
+update customer_accounts
+set balance = balance + p_amount
+where account_id = p_to_account_id;
+
+INSERT INTO transactions (transaction_id, from_account_id, to_account_id, amount, transaction_date)
+    VALUES (transactions_seq.NEXTVAL, p_from_account_id, p_to_account_id, p_amount, SYSDATE);
+
+    END transfer_money;
+
+
+    create or replace function get_total_balance (p_customer_name varchar2) return number
+    IS
+    v_total_balance number;
+
+    begin
+
+    select sum(balance) into v_total_balance
+    from customer_accounts
+    where customer_name = p_customer_name;
+
+    return v_total_balance;
+
+    end get_total_balance;
