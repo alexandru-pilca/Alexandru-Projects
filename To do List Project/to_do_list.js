@@ -10,7 +10,7 @@ function addTask(){
     li.textContent = taskInput.value;
 
     let deleteButton = document.createElement("button");
-    deleteButton.textContent = "X"
+    deleteButton.textContent = "❌"
     deleteButton.addEventListener ("click", function(){
         li.remove();
         
@@ -18,6 +18,8 @@ function addTask(){
 
     li.appendChild(deleteButton);
     taskList.appendChild(li);
+
+    
     taskInput.value ="";
     
 };
