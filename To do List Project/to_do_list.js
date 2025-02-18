@@ -19,8 +19,7 @@ function addTask(){
     li.appendChild(deleteButton);
     taskList.appendChild(li);
 
-    
+
     taskInput.value ="";
     
 };
-
