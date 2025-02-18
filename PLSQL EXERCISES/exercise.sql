@@ -1,30 +1,3 @@
-CREATE OR REPLACE FUNCTION UPDATE_CAR(
-     P_ID CARS.CAR_ID%TYPE,  
-    P_MODEL CARS.MODEL%TYPE,
-    P_DATE_OF_MANUF CARS.DATE_OF_MANUFACTURE%TYPE  
-)
-
-RETURN NUMBER
-AS
- V_YEAR NUMBER;
- 
- BEGIN
-   UPDATE CARS 
-   SET 
-   MODEL = P_MODEL,
-   DATE_OF_MANUFACTURE =  P_DATE_OF_MANUF
-   WHERE CAR_ID = P_ID;
-   
-   SELECT EXTRACT(YEAR FROM DATE_OF_MANUFACTURE)
-   INTO V_YEAR
-   FROM CARS 
-   WHERE CAR_ID = P_ID;   
- 
- RETURN V_YEAR;
- END UPDATE_CAR;
- /
-
-
  --1. CREATE TABLES EMPLOEES AN DEPARTMENTS
 
 CREATE TABLE EMPLOYEES (
@@ -1247,3 +1220,100 @@ INSERT INTO transactions (transaction_id, from_account_id, to_account_id, amount
     return v_total_balance;
 
     end get_total_balance;
+
+
+
+    --34. Write a PL/SQL block that demonstrates how to handle exceptions, such as division by zero or null value errors.
+
+
+    declare 
+    v_number1 := 5;
+    v_number2 := 0:
+    v_result number;
+    v_val number := null;
+
+    begin 
+
+    v_result := v_number1 / v_number2;
+
+    EXCEPTION
+    when zero_divide THEN
+    DBMS_OUTPUT.PUT_LINE( 'Division by zero occurred.');
+
+    end;
+
+    begin
+
+     if v_val is null THEN
+     raise value_error;
+
+     end if;
+
+     EXCEPTION
+     when value_error THEN
+      DBMS_OUTPUT.PUT_LINE('Error: Null value encountered.');
+      end;
+
+      end;
+
+
+      --35.Create a pl/sql block to calculates the total sales for each product by joining the products and sales tables.
+
+      declare
+
+      cursor c_sale select p.product_name, sum(s.sale_amount) as total_amount
+      from products p
+      join sales s
+      on p.product_id = s.product_id
+      group by p.product_name;
+    
+    v_product_name varchar2(100);
+    v_total_sale number;
+
+      begin
+
+      for rec in c_sale loop
+      v_product_name := rec.product_name;
+      v_total_sale := rec.total_amount;
+
+      dbms_output.put_line ('Product: '|| v_product_name||' , Total Sales: '||v_total_sale);
+
+      end loop;
+
+      end;
+
+      --36. Create a pl/sql block that retrieves the names of products that have total sales greater than the average sales across all products.
+
+      declare 
+
+      cursor c_products is
+      select product_name 
+      from products
+      where product_id in (
+        select s.product_id
+        from sales s
+        group by s.product_id
+        having sum(s.sale_amount) > (
+          select avg(total_sale)
+          from (select sum(sale_amount) as total_amount
+          from Sales
+          group by product_id)
+        )
+      );
+
+      v_product_name varchar2(100);
+
+      begin
+
+      for i in c_products
+      loop
+      v_product_name := i.product_name;
+
+      DBMS_OUTPUT.PUT_LINE('Product with sales greater than the average: ' || v_product_name);
+
+      end loop;
+
+      end;
+
+
+      
