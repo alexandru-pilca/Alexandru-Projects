@@ -1,7 +1,8 @@
-function addTask(){
-    let taskInput = document.getElementById("taskInput");
-    let taskList = document.getElementById("taskList");
+let taskInput = document.getElementById("taskInput");
+let taskList = document.getElementById("taskList");
 
+function addTask(){
+    
     if (taskInput.value === ""){
          return;
     }
