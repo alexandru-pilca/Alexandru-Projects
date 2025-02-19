@@ -60,10 +60,21 @@ button:hover {
 }
 
 li {
-    font-size:17px;
+    font-size: 17px;
     font-family: Arial;
     font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
 }
+
+li::before {
+    content: "• ";
+    margin-right: 10px;
+}
+
+
 
 .input-container {
     display: flex;
@@ -91,7 +102,7 @@ p{
 
 #deleteButton  {
     background-color: rgb(223, 219, 219);
-    margin-left: 100px;
+    
     border-color: red;
     border-width: 3px;
     border-radius: 40px;  
