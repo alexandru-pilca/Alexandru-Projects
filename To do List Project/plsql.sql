@@ -5,9 +5,15 @@ create table Tasks(
     task VARCHAR2(100)
 );
 
+
+
+
 create SEQUENCE task_seq
 start with 1
 increment by 1;
+
+
+
 
 create or replace package ins_del_tasks AS
 
@@ -16,6 +22,9 @@ procedure ins_task(p_task_name tasks.task%type);
 procedure del_task(p_task_id number);
 
 end ins_del_tasks;
+
+
+
 
 create or replace PACKAGE body ins_del_tasks AS
 
@@ -40,6 +49,9 @@ BEGIN
 
  end ins_task;
 
+
+
+
  procedure del_task(p_task_id)
  IS
 
@@ -54,7 +66,10 @@ BEGIN
 
  end del_task;
 
- end ins_del_tasks;   
+ end ins_del_tasks; 
+
+
+
 
 
  create or replace function get_task_count return NUMBER
@@ -74,6 +89,10 @@ BEGIN
  end get_task_count;
 
 
+
+
+
+
  create or replace procedure display_tasks
  is
 
@@ -87,7 +106,7 @@ BEGIN
 
 
 
- 
+
 
  --Insert, delete, display, get procedure and function calls
 
