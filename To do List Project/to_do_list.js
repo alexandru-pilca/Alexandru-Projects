@@ -3,6 +3,7 @@ let taskInput = document.getElementById("taskInput");
 let taskList = document.getElementById("taskList");
 let addButton = document.querySelector(".btn");
 let taskCount = document.getElementById("taskCount");
+
 document.addEventListener("DOMContentLoaded", function () {
     addButton.addEventListener("click", addTask);
     taskInput.addEventListener("keydown", function (event) {
@@ -42,8 +43,6 @@ function displayTasks() {
     tasks.forEach((task, index) => {
         let li = document.createElement("li");// For each task in the array create a li (list item)
         li.textContent = task.text;
-        
-
         let deleteButton = document.createElement("button");
         deleteButton.textContent = "X";
         deleteButton.id = "deleteButton";
