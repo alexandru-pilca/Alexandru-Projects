@@ -3,6 +3,9 @@ let taskInput = document.getElementById("taskInput");
 let taskList = document.getElementById("taskList");
 let addButton = document.querySelector(".btn");
 let taskCount = document.getElementById("taskCount");
+let deleteAllButton = document.getElementById("deleteAllButton");
+
+
 
 document.addEventListener("DOMContentLoaded", function () {
     addButton.addEventListener("click", addTask);
@@ -12,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
             addTask();
         }
     });
-
+    deleteAllButton.addEventListener("click", deleteAllTasks);
     displayTasks(); // Load tasks on page load
 });
 
@@ -29,7 +32,13 @@ function addTask() {
     taskInput.value = ""; // Clear input field
     displayTasks();
 }
-    
+
+  // Function to delete all tasks
+function deleteAllTasks() {
+    tasks = []; // Clear the tasks array
+    saveToLocalStorage();
+    displayTasks();
+}  
 
 // Function to save tasks to localStorage
 function saveToLocalStorage() {
