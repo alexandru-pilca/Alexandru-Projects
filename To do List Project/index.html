@@ -7,14 +7,25 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <section>
     <h1>📝 To Do List  </h1>
     <div class ="input_container">
     <input type="text" id="taskInput" placeholder="Enter a new task">
-    <button  onclick="addTask()">Add </button>
+    <button id ="addbutton" class="btn" onclick="addTask()">Add </button>
 </div>
     <ul id="taskList"></ul>
-    
+<div>
+    <hr class="counter" />
+    <div class="counter-container">
+    <p><span id ="taskCount">0</span> items total</p>
+    </div>
+</div>
+</section>
+    <footer>
+
+    </footer>
     <script src="to_do_list.js"></script>
     
 </body>
 </html>
+

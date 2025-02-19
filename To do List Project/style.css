@@ -42,19 +42,25 @@ input {
 button {
     padding: 5px;
     border-radius: 5px;
-    border: 3px 
-    border-color: red;
+    border: 3px solid green; 
     cursor: pointer;
     margin-left: 10px;
-    border-radius: 5px;
-    border-color: red;
-    border-width: 3px;
+    border-width: 4px;
     display: inline-block;
     margin-top: 10px; 
+    font-size: 15px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease; 
+}
+
+button:hover {
+    background-color: lightgreen;
+    color: black;
 }
 
 li {
-    font-size:17px; 
+    font-size:17px;
     font-family: Arial;
     font-weight: bold;
 }
@@ -64,4 +70,39 @@ li {
     align-items: center; 
     gap: 10px; 
 }
+
+#taskCount{
+    font-size:17px; 
+    font-family: Arial;
+    font-weight: bold;
+
+}
+
+p{
+    font-size:17px; 
+    font-family: Arial;
+    font-weight: bold;
+}
+
+.counter{
+    border-width: 1px;
+    border-color: black;
+}
+
+#deleteButton  {
+    background-color: rgb(223, 219, 219);
+    margin-left: 100px;
+    border-color: red;
+    border-width: 3px;
+    border-radius: 40px;  
+}
+
+#deleteButton:hover {
+    background-color: red;
+    color: white;
+}
+
+
+
+
 
