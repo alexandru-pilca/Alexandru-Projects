@@ -63,8 +63,13 @@ function displayTasks() {
             displayTasks();
         });
 
+    
+
+   
+        
         li.appendChild(deleteButton);// Attach the button to the taskList li
         taskList.appendChild(li);
+
     });
 
     
