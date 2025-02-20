@@ -9,13 +9,14 @@ let deleteAllButton = document.getElementById("deleteAllButton");
 
 document.addEventListener("DOMContentLoaded", function () {
     addButton.addEventListener("click", addTask);
+    deleteAllButton.addEventListener("click", deleteAllTasks);
     taskInput.addEventListener("keydown", function (event) {
         if (event.key === "Enter") {
             event.preventDefault();// It will not put empty input
             addTask();
         }
     });
-    deleteAllButton.addEventListener("click", deleteAllTasks);
+    
     displayTasks(); // Load tasks on page load
 });
 
