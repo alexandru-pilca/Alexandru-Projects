@@ -129,19 +129,19 @@ label {
 }
 
 .form-container {
-    max-width: 500px;  /* Adjust the width as needed */
-    margin: 50px auto;  /* Center the form on the page */
+    max-width: 500px;  
+    margin: 50px auto;  
     padding: 20px;
     background: linear-gradient(to right, goldenrod, lightgreen);
     background-repeat: no-repeat;
-    background-attachment: fixed;  /* Background color for the form */
-    border-radius: 10px;  /* Rounded corners */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  /* Optional: Add a shadow for a nice effect */
+    background-attachment: fixed;  
+    border-radius: 10px; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
 }
 
 input {
-    color: white;  /* Change the color of the input text */
-    width: 100%;  /* Make input fields take up the full width */
+    color: white;  
+    width: 100%;  
     padding: 10px;
     margin: 5px 0;
     border: 3px solid #c90b0b;
@@ -151,41 +151,41 @@ input {
 }
 
 h1#reg {
-    font-size: 2rem;  /* Optional: Change the font size of the register heading */
-    text-align: center;  /* Center the heading */
-    color: rgb(192, 53, 11);  /* Optional: Change the color of the heading */
+    font-size: 2rem;  
+    text-align: center;  
+    color: rgb(192, 53, 11);  
 }
 
 .return-container {
     margin-bottom: 20px;
     margin-top: 300px;
-    text-align: center;  /* Center text within the container */
+    text-align: center;  
 }
 
 .return-link {
-    color: greenyellow;  /* Change text color */
-    background-color: black;  /* Background color */
-    padding: 20px 40px;  /* Add padding */
-    text-decoration: none;  /* Remove underline */
-    border-radius: 5px;  /* Rounded corners */
-    font-size: 2rem;  /* Make text bigger */
-    transition: background-color 0.3s, color 0.3s;  /* Add transition for hover effect */
+    color: greenyellow; 
+    background-color: black;  
+    padding: 20px 40px;  
+    text-decoration: none; 
+    border-radius: 5px;  
+    font-size: 2rem; 
+    transition: background-color 0.3s, color 0.3s; 
 }
 
 .return-link:hover {
-    color: black;  /* Change text color on hover */
-    background-color: greenyellow;  /* Change background color on hover */
+    color: black;  
+    background-color: greenyellow;  
 }
 
 .equ-container {
-    max-width: 500px;  /* Adjust the width as needed */
-    margin: 50px auto;  /* Center the form on the page */
+    max-width: 500px;  
+    margin: 50px auto;  
     padding: 20px;
     background: linear-gradient(to right, goldenrod, lightgreen);
     background-repeat: no-repeat;
-    background-attachment: fixed;  /* Background color for the form */
-    border-radius: 10px;  /* Rounded corners */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  /* Optional: Add a shadow for a nice effect */
+    background-attachment: fixed;  
+    border-radius: 10px;  
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
 }
 
 

@@ -52,6 +52,8 @@ function displayTasks() {
     tasks.forEach((task, index) => {
         let li = document.createElement("li");// For each task in the array create a li (list item)
         li.textContent = task.text;
+        let hr = document.createElement("hr");
+        taskList.appendChild(hr);
         let deleteButton = document.createElement("button");
         deleteButton.textContent = "X";
         deleteButton.id = "deleteButton";
@@ -64,5 +66,8 @@ function displayTasks() {
         li.appendChild(deleteButton);// Attach the button to the taskList li
         taskList.appendChild(li);
     });
+
+    
+
     taskCount.textContent = tasks.length;
 };
