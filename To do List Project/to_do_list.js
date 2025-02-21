@@ -1,75 +1,89 @@
-let tasks = JSON.parse(localStorage.getItem("tasks")) || [];// Local storage
-let taskInput = document.getElementById("taskInput");
-let taskList = document.getElementById("taskList");
-let addButton = document.querySelector(".btn");
-let taskCount = document.getElementById("taskCount");
-let deleteAllButton = document.getElementById("deleteAllButton");
+let toDoList = {
+    tasks: JSON.parse(localStorage.getItem("tasks")) || [],
+    taskInput: document.getElementById("taskInput"),
+    taskList: document.getElementById("taskList"),
+    addButton: document.querySelector(".btn"),
+    taskCount: document.getElementById("taskCount"),
+    deleteAllButton: document.getElementById("deleteAllButton"),
+};
 
+document.addEventListener("DOMContentLoaded", () => {
+    displayTasks(toDoList);
 
+    toDoList.addButton.addEventListener("click", () => addTask(toDoList));
 
-document.addEventListener("DOMContentLoaded", function () {
-    addButton.addEventListener("click", addTask);
-    deleteAllButton.addEventListener("click", deleteAllTasks);
-    taskInput.addEventListener("keydown", function (event) {
+    toDoList.taskInput.addEventListener("keydown", function (event) {
         if (event.key === "Enter") {
-            event.preventDefault();// It will not put empty input
-            addTask();
+            event.preventDefault();
+            addTask(toDoList);
         }
     });
-    
-    displayTasks(); // Load tasks on page load
+
+    toDoList.deleteAllButton.addEventListener("click", () => clearTasks(toDoList));
 });
 
-// Function to add a task
-function addTask() {
-    let taskText = taskInput.value.trim();
+function addTask(toDoList) {
+    let taskText = toDoList.taskInput.value.trim();
 
-    if (taskText === "") {
-        return; // Prevent adding empty tasks
+    if (taskText === "") return;
+
+    toDoList.tasks.push({ description: taskText, completed: false });
+    localStorage.setItem("tasks", JSON.stringify(toDoList.tasks));
+    toDoList.taskInput.value = "";
+    displayTasks(toDoList);
+}
+
+function deleteTask(index, toDoList) {
+    if (!toDoList.tasks[index].completed) {
+        alert("You can only delete completed tasks.");
+        return;
     }
-
-    tasks.push({ text: taskText });// Add an task to the local storage array
-    saveToLocalStorage();
-    taskInput.value = ""; // Clear input field
-    displayTasks();
+    toDoList.tasks.splice(index, 1);
+    localStorage.setItem("tasks", JSON.stringify(toDoList.tasks));
+    displayTasks(toDoList);
 }
 
-  // Function to delete all tasks
-function deleteAllTasks() {
-    tasks = []; // Clear the tasks array
-    saveToLocalStorage();
-    displayTasks();
-}  
-
-// Function to save tasks to localStorage
-function saveToLocalStorage() {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
+function clearTasks(toDoList) {
+    toDoList.tasks = [];
+    localStorage.setItem("tasks", JSON.stringify(toDoList.tasks));
+    displayTasks(toDoList);
 }
 
-// Function to display tasks and add a delete button for each task
-function displayTasks() {
-    taskList.innerHTML = ""; // Clear the list before reloading
+function toggleTask(index, toDoList) {
+    toDoList.tasks[index].completed = !toDoList.tasks[index].completed;
+    localStorage.setItem("tasks", JSON.stringify(toDoList.tasks));
+    displayTasks(toDoList);
+}
 
-    tasks.forEach((task, index) => {
-        let li = document.createElement("li");// For each task in the array create a li (list item)
-        li.textContent = task.text;
-        let hr = document.createElement("hr");
-        taskList.appendChild(hr);
+function displayTasks(toDoList) {
+    toDoList.taskList.innerHTML = "";
+
+    toDoList.tasks.forEach((task, index) => {
+        let li = document.createElement("li");
+        li.classList.add("task-item");
+
+        if (task.completed) {
+            li.classList.add("completed");
+        }
+
+        let taskText = document.createElement("span");
+        taskText.textContent = task.description;
+        taskText.style.textDecoration = task.completed ? "line-through" : "none";
+        taskText.style.color = task.completed ? "grey" : "black";
+        taskText.style.textDecorationThickness = task.completed ? "2px" : "initial";
+        taskText.style.textDecorationColor = task.completed ? "red" : "initial";
+        taskText.addEventListener("click", () => toggleTask(index, toDoList));
+        
+        
         let deleteButton = document.createElement("button");
         deleteButton.textContent = "X";
         deleteButton.id = "deleteButton";
-        deleteButton.addEventListener("click", function () {
-            tasks.splice(index, 1); // Remove the task from the array
-            saveToLocalStorage();
-            displayTasks();
-        });
-  
-        li.appendChild(deleteButton);// Attach the button to the taskList li
-        taskList.appendChild(li);
-
+        deleteButton.onclick = () => deleteTask(index, toDoList);
+      
+        li.appendChild(taskText);
+        li.appendChild(deleteButton);
+        toDoList.taskList.appendChild(li);
     });
 
-    
-
-    taskCount.textContent = tasks.length;
-};
+    toDoList.taskCount.textContent = toDoList.tasks.length;
+}
