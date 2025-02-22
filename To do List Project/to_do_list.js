@@ -27,7 +27,7 @@ function addTask(toDoList) {
 
     if (taskText === "") return;
 
-    toDoList.tasks.push({ description: taskText, completed: false });
+    toDoList.tasks.push({ text: taskText, completed: false });
     localStorage.setItem("tasks", JSON.stringify(toDoList.tasks));
     toDoList.taskInput.value = "";
     displayTasks(toDoList);
@@ -67,7 +67,7 @@ function displayTasks(toDoList) {
         }
 
         let taskText = document.createElement("span");
-        taskText.textContent = task.description;
+        taskText.textContent = task.text;
         taskText.style.textDecoration = task.completed ? "line-through" : "none";
         taskText.style.color = task.completed ? "grey" : "black";
         taskText.style.textDecorationThickness = task.completed ? "2px" : "initial";
