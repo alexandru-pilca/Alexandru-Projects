@@ -55,15 +55,25 @@ BEGIN
 
  procedure del_task(p_task_id number) 
  IS
+ v_task_status char(1);
 
  begin
 
+select task_status into v_task_status 
+from tasks
+where task_id = p_task_id;
+
+if v_task_id = 'F' THEN
+  DBMS_OUTPUT.put_line('You can only delete completed tasks.');
+ ELSE
  DELETE from tasks
  where task_id = p_task_id;
 
  commit;
 
  dbms_output.put_line('Task successfully deleted!');
+
+ end if;
 
  end del_task;
 
