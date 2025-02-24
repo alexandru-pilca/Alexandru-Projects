@@ -2,7 +2,8 @@
 
 create table Tasks(
     task_id number primary key,
-    task VARCHAR2(100)
+    task VARCHAR2(100),
+    task_status char(1) CHECK (task_status in ('T','F')) default 'F'
 );
 
 
@@ -52,7 +53,7 @@ BEGIN
 
 
 
- procedure del_task(p_task_id) 
+ procedure del_task(p_task_id number) 
  IS
 
  begin
@@ -89,6 +90,19 @@ BEGIN
  end get_task_count;
 
 
+ create or replace procedure upd_task_status(
+    p_task_id number 
+  )
+    is
+
+    BEGIN
+        UPDATE tasks
+        set task_status = 'T'
+        where task_id = p_task_id;
+
+     end upd_task_status;   
+
+
 
 
 
@@ -97,8 +111,13 @@ BEGIN
  is
 
  begin
- for i in (select task_id, task from tasks order by task_id) loop
- dbms_output.put_line('['||i.task_id||'] '||i.task);
+ for i in (select task_id, task, 
+ CASE
+   when task_status = 'F' then 'Not completed'
+   when task_status = 'T' then 'Completed'
+   end
+   FROM tasks order by task_id) loop
+ dbms_output.put_line('['||i.task_id||'] '||i.task||' is '||i.task_status);
  end loop;
 
  end display_tasks;
@@ -128,3 +147,7 @@ SELECT get_task_count FROM dual;
 BEGIN
     ins_del_tasks.del_task(1);
 END;
+
+begin 
+ upd_task_status(1);
+end;
