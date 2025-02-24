@@ -7,10 +7,12 @@ let toDoList = {
     deleteAllButton: document.getElementById("deleteAllButton"),
 };
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function() {
     displayTasks(toDoList);
 
-    toDoList.addButton.addEventListener("click", () => addTask(toDoList));
+    toDoList.addButton.addEventListener("click", function() { 
+        addTask(toDoList);
+    });
 
     toDoList.taskInput.addEventListener("keydown", function (event) {
         if (event.key === "Enter") {
@@ -19,19 +21,24 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    toDoList.deleteAllButton.addEventListener("click", () => clearTasks(toDoList));
+    toDoList.deleteAllButton.addEventListener("click", function() { 
+        clearTasks(toDoList);
+    });
 });
 
 function addTask(toDoList) {
     let taskText = toDoList.taskInput.value.trim();
 
-    if (taskText === "") return;
+    if (taskText === "") { 
+        alert("Task cannot be empty!")
+    return;
+    }
 
     toDoList.tasks.push({ text: taskText, completed: false });
     localStorage.setItem("tasks", JSON.stringify(toDoList.tasks));
     toDoList.taskInput.value = "";
     displayTasks(toDoList);
-}
+};
 
 function deleteTask(index, toDoList) {
     if (!toDoList.tasks[index].completed) {
@@ -41,19 +48,22 @@ function deleteTask(index, toDoList) {
     toDoList.tasks.splice(index, 1);
     localStorage.setItem("tasks", JSON.stringify(toDoList.tasks));
     displayTasks(toDoList);
-}
+};
+
 
 function clearTasks(toDoList) {
-    toDoList.tasks = [];
-    localStorage.setItem("tasks", JSON.stringify(toDoList.tasks));
-    displayTasks(toDoList);
-}
+    if (confirm("Are you sure you want to delete all tasks?")) {
+        toDoList.tasks = [];
+        localStorage.setItem("tasks", JSON.stringify(toDoList.tasks));
+        displayTasks(toDoList);
+    }
+};
 
 function toggleTask(index, toDoList) {
     toDoList.tasks[index].completed = !toDoList.tasks[index].completed;
     localStorage.setItem("tasks", JSON.stringify(toDoList.tasks));
     displayTasks(toDoList);
-}
+};
 
 function displayTasks(toDoList) {
     toDoList.taskList.innerHTML = "";
@@ -72,13 +82,17 @@ function displayTasks(toDoList) {
         taskText.style.color = task.completed ? "grey" : "black";
         taskText.style.textDecorationThickness = task.completed ? "2px" : "initial";
         taskText.style.textDecorationColor = task.completed ? "red" : "initial";
-        taskText.addEventListener("click", () => toggleTask(index, toDoList));
+        taskText.addEventListener("click", function() { 
+            toggleTask(index, toDoList);
+        });
         
         
         let deleteButton = document.createElement("button");
         deleteButton.textContent = "X";
         deleteButton.id = "deleteButton";
-        deleteButton.onclick = () => deleteTask(index, toDoList);
+        deleteButton.onclick = function() {
+            deleteTask(index, toDoList);
+        };
       
         li.appendChild(taskText);
         li.appendChild(deleteButton);
@@ -86,4 +100,7 @@ function displayTasks(toDoList) {
     });
 
     toDoList.taskCount.textContent = toDoList.tasks.length;
-}
+};
+
+
+
