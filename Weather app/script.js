@@ -1,16 +1,22 @@
 let weatherApp = {
-     apiKey : "635f8fdd8d70254799ea58b5997f56d7",
- apiUrl : "https://api.openweathermap.org/data/2.5/weather?units=metric&q=",
- searchBox : document.querySelector(".search input"),
- searchBtn : document.querySelector(".search button"),
- weatherIcon : document.querySelector(".weather-icon"),
+    apiKey : "635f8fdd8d70254799ea58b5997f56d7",
+apiUrl : "https://api.openweathermap.org/data/2.5/weather?units=metric&q=",
+searchBox : document.querySelector(".search input"),
+searchBtn : document.querySelector(".search button"),
+weatherIcon : document.querySelector(".weather-icon"),
 }
+   
 
 async function checkWeather(city) {
     try {
-        const response = await fetch(weatherApp.apiUrl + city + `&appid=${weatherApp.apiKey}`);
+        let response = await fetch(weatherApp.apiUrl + city + `&appid=${weatherApp.apiKey}`);
         let data = await response.json();
 
+        if (response.status == 404 || data.cod === "404") {
+            document.querySelector(".error").style.display = "block";
+            document.querySelector(".weather").style.display = "none";
+            return; 
+        }
 
         console.log(data);
 
@@ -20,15 +26,21 @@ async function checkWeather(city) {
         document.querySelector(".wind").innerHTML = data.wind.speed + " km/h";
 
         if (data.weather[0].main === "Clouds") {
-            weatherApp.weatherIcon.src = "image/sun with cloud.webp";
+            weatherApp.weatherIcon.src = "images/cloud.png";
         } else if (data.weather[0].main === "Clear") {
-            weatherApp.weatherIcon.src = "image/sun.png";
+            weatherApp.weatherIcon.src = "images/sun.png";
         } else if (data.weather[0].main === "Snow") {
-            weatherApp.weatherIcon.src = "image/snow.webp";
-        } else if  (data.weather[0].main === "Rain") {
-            weatherApp.weatherIcon.src = "image/weather07-512.webp";
+            weatherApp.weatherIcon.src = "images/snow.png";
+        } else if (data.weather[0].main === "Rain") {
+            weatherApp.weatherIcon.src = "images/rain.png";
         }
-    } 
+
+        document.querySelector(".weather").style.display = "block";
+        document.querySelector(".error").style.display = "none";
+    } catch (error) {
+        console.error("Error fetching weather data:", error);
+       
+    }
 }
 
 weatherApp.searchBtn.addEventListener("click", function() {
