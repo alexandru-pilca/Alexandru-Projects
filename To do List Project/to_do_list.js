@@ -11,23 +11,23 @@ document.addEventListener("DOMContentLoaded", function() {
     displayTasks(toDoList);
 
     toDoList.addButton.addEventListener("click", function() { 
-        addTask(toDoList);
+        addTask(toDoList, taskInput);
     });
 
     toDoList.taskInput.addEventListener("keydown", function (event) {
         if (event.key === "Enter") {
             event.preventDefault();
-            addTask(toDoList);
+            addTask(toDoList, taskInput);
         }
     });
 
     toDoList.deleteAllButton.addEventListener("click", function() { 
-        clearTasks(toDoList);
+        clearTasks(toDoList, deleteAllButton);
     });
 });
 
-function addTask(toDoList) {
-    let taskText = toDoList.taskInput.value.trim();
+function addTask(toDoList, taskInput) {
+    let taskText = taskInput.value.trim();
 
     if (taskText === "") { 
         alert("Task cannot be empty!")
