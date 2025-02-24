@@ -1,12 +1,14 @@
-const apiKey = "635f8fdd8d70254799ea58b5997f56d7";
-const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
-const searchBox = document.querySelector(".search input");
-const searchBtn = document.querySelector(".search button");
-const weatherIcon = document.querySelector(".weather-icon");
+let weatherApp = {
+     apiKey : "635f8fdd8d70254799ea58b5997f56d7",
+ apiUrl : "https://api.openweathermap.org/data/2.5/weather?units=metric&q=",
+ searchBox : document.querySelector(".search input"),
+ searchBtn : document.querySelector(".search button"),
+ weatherIcon : document.querySelector(".weather-icon"),
+}
 
 async function checkWeather(city) {
     try {
-        const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
+        const response = await fetch(weatherApp.apiUrl + city + `&appid=${weatherApp.apiKey}`);
         let data = await response.json();
 
 
@@ -18,20 +20,20 @@ async function checkWeather(city) {
         document.querySelector(".wind").innerHTML = data.wind.speed + " km/h";
 
         if (data.weather[0].main === "Clouds") {
-            weatherIcon.src = "image/sun with cloud.webp";
+            weatherApp.weatherIcon.src = "image/sun with cloud.webp";
         } else if (data.weather[0].main === "Clear") {
-            weatherIcon.src = "image/sun.png";
+            weatherApp.weatherIcon.src = "image/sun.png";
         } else if (data.weather[0].main === "Snow") {
-            weatherIcon.src = "image/snow.webp";
-        } else if (data.weather[0].main === "Rain") {
-            weatherIcon.src = "image/weather07-512.webp";
+            weatherApp.weatherIcon.src = "image/snow.webp";
+        } else if  (data.weather[0].main === "Rain") {
+            weatherApp.weatherIcon.src = "image/weather07-512.webp";
         }
     } 
-};
+}
 
-searchBtn.addEventListener("click", () => {
-    if (searchBox.value.trim() !== "") {
-        checkWeather(searchBox.value);
+weatherApp.searchBtn.addEventListener("click", function() {
+    if (weatherApp.searchBox.value.trim() !== "") {
+        checkWeather(weatherApp.searchBox.value);
     } else {
         alert("Please enter a city name.");
     }
