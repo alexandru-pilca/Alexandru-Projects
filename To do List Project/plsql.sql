@@ -1,136 +1,136 @@
 --PL/SQL similar functionality as the Javascript
 
-create table Tasks(
-    task_id number primary key,
-    task VARCHAR2(100),
-    task_status char(1) CHECK (task_status in ('T','F')) default 'F'
+create table tasks (
+   task_id     number primary key,
+   task        varchar2(100),
+   task_status char(1) check ( task_status in ( 'T',
+                                                'F' ) ) default 'F'
 );
 
 
 
 
-create SEQUENCE task_seq
-start with 1
-increment by 1;
+create sequence task_seq start with 1 increment by 1;
 
 
 
 
-create or replace package ins_del_tasks AS
+create or replace package ins_del_tasks as
+   procedure ins_task (
+      p_task_name tasks.task%type
+   );
 
-procedure ins_task(p_task_name tasks.task%type);
-
-procedure del_task(p_task_id number);
+   procedure del_task (
+      p_task_id number
+   );
 
 end ins_del_tasks;
 
 
 
 
-create or replace PACKAGE body ins_del_tasks AS
+create or replace package body ins_del_tasks as
 
-procedure ins_task(
-    p_task_name tasks.task%type
-)
-IS
+   procedure ins_task (
+      p_task_name tasks.task%type
+   ) is
+   begin
+      insert into tasks (
+         task_id,
+         task
+      ) values ( task_seq.nextval,
+                 p_task_name );
 
-BEGIN
-
-    insert into tasks (task_id, task)
-    values (task_seq.NEXTVAL, p_task_name);
-
-    commit;
-
-    DBMS_OUTPUT.put_line('Task: '||p_task_name||' was successfully added!');
-
- EXCEPTION
-
- WHEN OTHERS THEN
- DBMS_OUTPUT.put_line('Error: '||SQLERRM);
-
- end ins_task;
+      commit;
+      dbms_output.put_line('Task: '
+                           || p_task_name
+                           || ' was successfully added!');
+   exception
+      when others then
+         dbms_output.put_line('Error: ' || sqlerrm);
+   end ins_task;
 
 
 
 
- procedure del_task(p_task_id number) 
- IS
- v_task_status char(1);
+   procedure del_task (
+      p_task_id number
+   ) is
+      v_task_status char(1);
+   begin
+      select task_status
+        into v_task_status
+        from tasks
+       where task_id = p_task_id;
 
- begin
+      if v_task_id = 'F' then
+         dbms_output.put_line('You can only delete completed tasks.');
+      else
+         delete from tasks
+          where task_id = p_task_id;
 
-select task_status into v_task_status 
-from tasks
-where task_id = p_task_id;
+         commit;
+         dbms_output.put_line('Task successfully deleted!');
+      end if;
 
-if v_task_id = 'F' THEN
-  DBMS_OUTPUT.put_line('You can only delete completed tasks.');
- ELSE
- DELETE from tasks
- where task_id = p_task_id;
+   end del_task;
 
- commit;
-
- dbms_output.put_line('Task successfully deleted!');
-
- end if;
-
- end del_task;
-
- end ins_del_tasks; 
+end ins_del_tasks;
 
 
 
 
 
- create or replace function get_task_count return NUMBER
- IS
+create or replace function get_task_count return number is
+   v_task_count number;
+begin
+   select count(*)
+     into v_task_count
+     from tasks;
 
- v_task_count number;
-
- begin
-
- select count(*) into v_task_count
- from tasks;
-
- dbms_output.put_line(v_task_count||' items total');
-
- return v_task_count;
-
- end get_task_count;
+   dbms_output.put_line(v_task_count || ' items total');
+   return v_task_count;
+end get_task_count;
 
 
- create or replace procedure upd_task_status(
-    p_task_id number 
-  )
-    is
+create or replace procedure upd_task_status (
+   p_task_id number
+) is
+begin
+   update tasks
+      set
+      task_status = 'T'
+    where task_id = p_task_id;
 
-    BEGIN
-        UPDATE tasks
-        set task_status = 'T'
-        where task_id = p_task_id;
-
-     end upd_task_status;   
+end upd_task_status;
 
 
 
 
 
 
- create or replace procedure display_tasks
- is
-
- begin
- for i in (select task_id, task, 
- CASE
-   when task_status = 'F' then 'Not completed'
-   when task_status = 'T' then 'Completed'
-   end
-   FROM tasks order by task_id) loop
- dbms_output.put_line('['||i.task_id||'] '||i.task||' is '||i.task_status);
- end loop;
-
- end display_tasks;
+create or replace procedure display_tasks is
+begin
+   for i in (
+      select task_id,
+             task,
+             case
+                when task_status = 'F' then
+                   'Not completed'
+                when task_status = 'T' then
+                   'Completed'
+             end
+        from tasks
+       order by task_id
+   ) loop
+      dbms_output.put_line('['
+                           || i.task_id
+                           || '] '
+                           || i.task
+                           || ' is '
+                           || i.task_status);
+   end loop;
+end display_tasks;
 
 
 
@@ -139,25 +139,26 @@ if v_task_id = 'F' THEN
 
  --Insert, delete, display, get procedure and function calls
 
- BEGIN
-    ins_del_tasks.ins_task('Buy groceries');
-    ins_del_tasks.ins_task('Complete project');
-    ins_del_tasks.ins_task('Call mom');
-END;
+begin
+   ins_del_tasks.ins_task('Buy groceries');
+   ins_del_tasks.ins_task('Complete project');
+   ins_del_tasks.ins_task('Call mom');
+end;
 
 
-BEGIN
-    display_tasks;
-END;
+begin
+   display_tasks;
+end;
 
 
-SELECT get_task_count FROM dual;
+select get_task_count
+  from dual;
 
 
-BEGIN
-    ins_del_tasks.del_task(1);
-END;
+begin
+   ins_del_tasks.del_task(1);
+end;
 
-begin 
- upd_task_status(1);
+begin
+   upd_task_status(1);
 end;

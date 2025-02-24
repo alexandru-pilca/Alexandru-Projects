@@ -1,178 +1,173 @@
 h1 {
-    font-size: 50px;
-    color: black;
-    font-family: Arial, Helvetica, sans-serif;
-    border-style: outset;
-    border-radius: 10px;
-    border-width: 8px;
-    border-color: black;
-    width: 490px;
-    background: greenyellow;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    text-align: center;
-    margin-left: auto;
+  font-size: 50px;
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  border-style: outset;
+  border-radius: 10px;
+  border-width: 8px;
+  border-color: black;
+  width: 490px;
+  background: greenyellow;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  text-align: center;
+  margin-left: auto;
 }
 
 @keyframes flashText {
-    0% { color: black; }
-    50% { color: red; }
-    100% { color: black; }
+  0% {
+    color: black;
+  }
+  50% {
+    color: red;
+  }
+  100% {
+    color: black;
+  }
 }
 
 #flash {
-    animation: flashText 2s infinite;
+  animation: flashText 2s infinite;
 }
 
 body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 50vh;
-    margin: 0px;
-    background-image: url("image.jpg");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
-    background-size: cover;
-    margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 50vh;
+  margin: 0px;
+  background-image: url("image.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  margin-top: 50px;
 }
 
 input {
-    border: 3px solid black;
-    flex: 1;
-    margin-top: 50px;
-    padding: 8px;
-    border-color: black;
-    border-width: 3px;
+  border: 3px solid black;
+  flex: 1;
+  margin-top: 50px;
+  padding: 8px;
+  border-color: black;
+  border-width: 3px;
 }
 
 button {
-    padding: 5px;
-    border-radius: 7px;
-    border: 4px solid green;
-    cursor: pointer;
-    margin-left: 50px;
-    border-width: 5px;
-    display: inline-block;
-    margin-top: 50px;
-    font-size: 15px;
-    font-family: Arial, sans-serif;
-    font-weight: bold;
-    transition: background-color 0.3s ease, color 0.3s ease;
+  padding: 5px;
+  border-radius: 7px;
+  border: 4px solid green;
+  cursor: pointer;
+  margin-left: 50px;
+  border-width: 5px;
+  display: inline-block;
+  margin-top: 50px;
+  font-size: 15px;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 button:hover {
-    background-color: lightgreen;
-    color: black;
+  background-color: lightgreen;
+  color: black;
 }
 
 li {
-    font-size: 17px;
-    font-family: Arial;
-    font-weight: bold;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    list-style: none;
-    padding-top: 5px;
+  font-size: 17px;
+  font-family: Arial;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  padding-top: 5px;
 }
 
 .task-item::before {
-    content: "⚫"; 
-    margin-right: 8px;
-    font-size: 18px;
+  content: "⚫";
+  margin-right: 8px;
+  font-size: 18px;
 }
 
-
 .task-item.completed::before {
-    content: "✅"; 
+  content: "✅";
 }
 
 .container {
-    background-color: white;
-    padding: 100px;
-    padding-top: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    border: 4px solid black;
+  background-color: white;
+  padding: 100px;
+  padding-top: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  border: 4px solid black;
 }
 
 .input-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 #taskCount {
-    font-size: 17px;
-    font-family: Arial;
-    font-weight: bold;
+  font-size: 17px;
+  font-family: Arial;
+  font-weight: bold;
 }
 
 p {
-    font-size: 17px;
-    font-family: Arial;
-    font-weight: bold;
+  font-size: 17px;
+  font-family: Arial;
+  font-weight: bold;
 }
 
 .counter {
-    border-width: 1.5px;
-    border-color: black;
-    width: 100%;
-    margin-top: 10px;
+  border-width: 1.5px;
+  border-color: black;
+  width: 100%;
+  margin-top: 10px;
 }
 
 #deleteButton {
-    background-color: rgb(223, 219, 219);
-    margin-top: 8px;
-    border-color: red;
-    border-width: 3px;
-    border-radius: 40px;
+  background-color: rgb(223, 219, 219);
+  margin-top: 8px;
+  border-color: red;
+  border-width: 3px;
+  border-radius: 40px;
 }
 
 #deleteButton:hover {
-    background-color: red;
-    color: white;
+  background-color: red;
+  color: white;
 }
 
 .counter-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 #deleteAllButton {
-    margin-left: auto;
-    padding: 5px;
-    border-radius: 7px;
-    border: 4px solid red;
-    cursor: pointer;
-    border-width: 5px;
-    display: inline-block;
-    margin-top: 8px;
-    font-size: 15px;
-    font-family: Arial, sans-serif;
-    font-weight: bold;
-    transition: background-color 0.3s ease, color 0.3s ease;
+  margin-left: auto;
+  padding: 5px;
+  border-radius: 7px;
+  border: 4px solid red;
+  cursor: pointer;
+  border-width: 5px;
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 15px;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 #deleteAllButton:hover {
-    background-color: red;
-    color: white;
+  background-color: red;
+  color: white;
 }
 
 #taskList {
-    padding-left: 10px;
+  padding-left: 10px;
 }
-
-
-
-
-
-
-
-
-
-
