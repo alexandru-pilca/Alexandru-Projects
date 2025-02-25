@@ -1,5 +1,5 @@
 let weatherApp = {
-  apiKey: "635f8fdd8d70254799ea58b5997f56d7",
+  apiKey: "api/key",
   apiUrl: "https://api.openweathermap.org/data/2.5/weather?units=metric&q=",
   searchBox: document.querySelector(".search input"),
   searchBtn: document.querySelector(".search button"),
