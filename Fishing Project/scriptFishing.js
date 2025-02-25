@@ -86,18 +86,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    fishingElements.fishSpecies.addEventListener("change", function () {
-        const selectedOption = this.options[this.selectedIndex];
-        const imgSrc = selectedOption.getAttribute("data-img");
-
-        fishingElements.fishImageContainer.innerHTML = "";
-        const fishImage = document.createElement("img");
-        fishImage.src = imgSrc;
-        fishImage.alt = selectedOption.text;
-        fishImage.width = 400;
-        fishImage.height = 200;
-        fishingElements.fishImageContainer.appendChild(fishImage);
-    });
 
     displayTrips();
 });
