@@ -1,0 +1,267 @@
+/* Resetting and global styles */
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+}
+
+/* Global Body Styles */
+body {
+  background: #222;
+  font-family: Arial, sans-serif;
+  background-image: url("fishImages/wallpaper2.avif");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  text-align: center;
+}
+
+/* Main container with Flexbox layout */
+.main-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 60px;
+  gap: 70px;
+}
+
+/* Styles for fishing container */
+.fishing-container {
+  flex: 1;
+  background: linear-gradient(
+    to right,
+    rgba(135, 206, 235, 0.3),
+    rgba(15, 72, 5, 0.4)
+  ); /* Transparent gradient */
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+}
+
+.fishing-container h1 {
+  color: #f0f2f2;
+  font-size: 2.5em;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.logo-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.logo-img {
+  width: 80px;
+  border-radius: 10px;
+}
+
+.outlined-text {
+  font-size: 2.5em;
+  color: white;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
+/* Input section */
+.input-section {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+input,
+select,
+button {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+button {
+  background: #0f8d04;
+  color: rgb(249, 248, 248);
+  font-size: x-large;
+  cursor: pointer;
+  border-radius: 20px;
+}
+
+button:hover {
+  background: #005bb5;
+}
+
+.delete-all {
+  background: red;
+}
+
+/* Trip List Styles */
+ul {
+  list-style: none;
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
+li {
+  background: #f9f9f9;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.trip-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.fish-icon {
+  width: 150px;
+  height: 80px;
+  border-radius: 5px;
+  padding: auto;
+  margin-left: 30px;
+}
+
+.delete-btn {
+  background: rgb(233, 229, 229);
+  color: white;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 10px;
+  margin-left: 5px;
+  border-color: black;
+  border-width: 2px;
+}
+
+.delete-btn:hover {
+  background: rgb(229, 8, 8);
+}
+
+#fishImageContainer {
+  margin-top: 10px;
+}
+
+h2 {
+  color: aliceblue;
+}
+
+/* Styles for weather container */
+.weather-container {
+  flex: 1;
+  background: linear-gradient(
+    to right,
+    rgba(0, 254, 186, 0.3),
+    rgba(91, 84, 138, 0.4)
+  ); /* Corrected gradient */
+  color: #fff;
+  border-radius: 20px;
+  padding: 40px 35px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: 650px;
+}
+
+/* Weather app specific styles */
+.search {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.search input {
+  border: 0;
+  outline: 0;
+  background: #ebfffc;
+  color: #555;
+  padding: 10px 25px;
+  height: 60px;
+  border-radius: 30px;
+  flex: 1;
+  margin-right: 16px;
+  font-size: 18px;
+}
+
+.search button {
+  border: 0;
+  outline: 0;
+  background: #ebfffc;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+}
+
+.search button img {
+  width: 30px;
+}
+
+.weather-icon {
+  width: 170px;
+  margin-top: 30px;
+}
+
+.weather h1 {
+  font-size: 80px;
+  font-weight: 500;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
+.weather h2 {
+  font-size: 80px;
+  font-weight: 400;
+  margin-top: 7px;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
+.details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  margin-top: 50px;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
+.col {
+  display: flex;
+  align-items: center;
+  text-align: left;
+}
+
+.col img {
+  width: 40px;
+  margin-right: 10px;
+}
+
+.humidity,
+.wind {
+  font-size: 28px;
+  margin-top: -6px;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
+/* Error message styles */
+.weather {
+  display: none;
+}
+
+.error {
+  text-align: left;
+  margin-left: 10px;
+  font-size: 14px;
+  margin-top: 10px;
+  display: none;
+}

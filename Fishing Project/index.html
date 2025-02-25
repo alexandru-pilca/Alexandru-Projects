@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fishing Trip Logger and Weather App</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="main-container">
+      <!-- Fishing  Section -->
+      <div class="fishing-container">
+        <h1 class="logo-title outlined-text">
+          <img
+            src="fishImages/fishing-logo.avif"
+            alt="Fishing Logo"
+            class="logo-img"
+          />
+          Fishing Trip Logger
+        </h1>
+
+        <div class="input-section">
+          <input type="date" id="tripDate" />
+          <input type="text" id="location" placeholder="Fishing Location" />
+          <select id="fishSpecies">
+            <option value="" disabled selected>Select Fish Species</option>
+            <option value="Bass" data-img="fishImages/bass.jpg">Bass</option>
+            <option value="Trout" data-img="fishImages/trout.jpg">Trout</option>
+            <option value="Salmon" data-img="fishImages/salmon.jpg">
+              Salmon
+            </option>
+            <option value="Catfish" data-img="fishImages/catfish.webp">
+              Catfish
+            </option>
+            <option value="Pike" data-img="fishImages/pike.jpg">Pike</option>
+            <option value="Common Carp" data-img="fishImages/common-carp.webp">
+              Common Carp
+            </option>
+            <option value="Mirror Carp" data-img="fishImages/Mirror_Carp.png">
+              Mirror Carp
+            </option>
+            <option value="Koi Carp" data-img="fishImages/koi-carp.webp">
+              Koi Carp
+            </option>
+            <option value="Grass Carp" data-img="fishImages/grass-carp.png">
+              Grass Carp
+            </option>
+            <option value="Gibel Carp" data-img="fishImages/Gibel_carp.webp">
+              Gibel Carp
+            </option>
+            <option value="Zander" data-img="fishImages/zander.jpg">
+              Zander
+            </option>
+            <option value="Pearch" data-img="fishImages/pearch.jpg">
+              Pearch
+            </option>
+          </select>
+
+          <input type="number" id="weight" placeholder="Weight (kg)" />
+          <button id="addTrip">Add Trip</button>
+        </div>
+
+        <h2>Fishing Trips 📝</h2>
+        <ul id="tripList"></ul>
+        <button id="clearTrips" class="delete-all">Clear All Trips</button>
+      </div>
+
+      <!-- Weather  Section -->
+      <div class="weather-container">
+        <div class="card">
+          <div class="search">
+            <input
+              type="text"
+              placeholder="Enter city name"
+              spellcheck="false"
+            />
+            <button>
+              <img src="Images/magnifying-glass.png" alt="Search Icon" />
+            </button>
+          </div>
+          <div class="error">
+            <p>Invalid City Name</p>
+          </div>
+          <div class="weather">
+            <img
+              src="Images/cloudy.png"
+              class="weather-icon"
+              alt="Weather Icon"
+            />
+            <h1 class="temp"></h1>
+            <h2 class="city"></h2>
+            <div class="details">
+              <div class="col">
+                <img src="Images/humidity.png" alt="Humidity Icon" />
+                <div>
+                  <p class="humidity"></p>
+                  <p>Humidity</p>
+                </div>
+              </div>
+              <div class="col">
+                <img src="Images/wind.png" alt="Wind Icon" />
+                <div>
+                  <p class="wind"></p>
+                  <p>Wind speed</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="scriptWeather.js"></script>
+    <script src="scriptFishing.js"></script>
+  </body>
+</html>
