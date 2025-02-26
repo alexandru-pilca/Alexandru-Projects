@@ -9,6 +9,8 @@ const fishingElements = {
   tripList: document.getElementById("tripList"),
   clearTripsBtn: document.getElementById("clearTrips"),
   fishImageContainer: document.getElementById("fishImageContainer"),
+  tripCount : document.getElementById("tripCount"),
+  baitInput: document.getElementById("bait"),
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -28,7 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const li = document.createElement("li");
       li.innerHTML = `
                 <div class="trip-info">
-                    <span>${trip.date} - <b>${trip.location}</b> caught a <b>${trip.fish}</b> weighing <b>${trip.weight} kg</b></span>
+                    <span>${trip.date} - <b>${trip.location}</b> caught a <b>${trip.fish}</b> weighing <b>${trip.weight} kg</b> on <b>${trip.bait}
+                    </b></span>
                     <img src="${trip.image}" alt="${trip.fish}" class="fish-icon">
                 </div>
                 <button class="delete-btn" data-index="${index}">
@@ -37,6 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
       fishingElements.tripList.appendChild(li);
     });
+    fishingElements.tripCount.textContent = trips.length;
   }
 
  
@@ -55,7 +59,8 @@ document.addEventListener("DOMContentLoaded", () => {
       !fishingElements.tripDate.value ||
       !fishingElements.locationInput.value.trim() ||
       !fishingElements.fishSpecies.value ||
-      !fishingElements.weightInput.value
+      !fishingElements.weightInput.value ||
+      !fishingElements.baitInput.value.trim()
     ) {
       alert("Please fill in all fields!");
       return;
@@ -73,6 +78,8 @@ document.addEventListener("DOMContentLoaded", () => {
       fish: fishingElements.fishSpecies.value,
       weight: fishingElements.weightInput.value,
       image: imgSrc,
+      bait: fishingElements.baitInput.value,
+
     });
 
     saveTrips();
@@ -82,6 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
     fishingElements.locationInput.value = "";
     fishingElements.fishSpecies.value = "";
     fishingElements.weightInput.value = "";
+    fishingElements.baitInput.value = "";
     fishingElements.fishImageContainer.innerHTML = "";
   });
 
@@ -91,9 +99,15 @@ document.addEventListener("DOMContentLoaded", () => {
       saveTrips();
       displayTrips();
     }
+
+    
   });
 
-  
+
 
   displayTrips();
+
+  
 });
+
+
