@@ -1,4 +1,3 @@
-/* Resetting and global styles */
 * {
   margin: 0;
   padding: 0;
@@ -6,7 +5,7 @@
   box-sizing: border-box;
 }
 
-/* Global Body Styles */
+
 body {
   background: #222;
   font-family: Arial, sans-serif;
@@ -18,7 +17,7 @@ body {
   text-align: center;
 }
 
-/* Main container with Flexbox layout */
+
 .main-container {
   display: flex;
   justify-content: space-between;
@@ -33,7 +32,7 @@ body {
     to right,
     rgba(135, 206, 235, 0.3),
     rgba(15, 72, 5, 0.4)
-  ); /* Transparent gradient */
+  ); 
   padding: 20px;
   border-radius: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 1);
@@ -66,7 +65,7 @@ body {
     1px 1px 0 #000;
 }
 
-/* Input section */
+
 .input-section {
   display: inline-flex;
   flex-direction: column;
@@ -99,7 +98,7 @@ button:hover {
   background: red;
 }
 
-/* Trip List Styles */
+
 ul {
   list-style: none;
   padding-bottom: 20px;
@@ -119,7 +118,8 @@ li {
 .trip-info {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap:30px;
+  font-size: 20px;
 }
 
 .fish-icon {
@@ -136,7 +136,7 @@ li {
   padding: 5px 10px;
   cursor: pointer;
   border-radius: 10px;
-  margin-left: 5px;
+  margin-left: 20px;
   border-color: black;
   border-width: 2px;
 }
@@ -151,6 +151,27 @@ li {
 
 h2 {
   color: aliceblue;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
+#tripCount {
+  font-size: 25px;
+  font-family: Arial;
+  font-weight: bold;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
+p {
+  font-size: 25px;
+  font-family: Arial;
+  font-weight: bold;
+  color: #f0f2f2;
+  margin-bottom: 15px;
+  margin-top: -10px;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
 }
 
 /* Styles for weather container */
@@ -160,7 +181,7 @@ h2 {
     to right,
     rgba(0, 254, 186, 0.3),
     rgba(91, 84, 138, 0.4)
-  ); /* Corrected gradient */
+  ); 
   color: #fff;
   border-radius: 20px;
   padding: 40px 35px;
@@ -169,7 +190,7 @@ h2 {
   height: 650px;
 }
 
-/* Weather app specific styles */
+
 .search {
   width: 100%;
   display: flex;
@@ -253,7 +274,7 @@ h2 {
     1px 1px 0 #000;
 }
 
-/* Error message styles */
+
 .weather {
   display: none;
 }
