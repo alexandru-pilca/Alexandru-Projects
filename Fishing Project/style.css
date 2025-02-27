@@ -28,9 +28,9 @@ body {
   display: flex;
   justify-content: space-between;
   padding: 60px;
-  gap: 200px;
+  gap: 100px;
   position: relative;
-  margin-left: 100px;
+  margin-left: 70px;
 }
 
 /* Styles for fishing container */
@@ -374,3 +374,11 @@ p {
 .temp-txt{
   font-size: x-large;
 }
+
+
+
+
+
+
+
+
