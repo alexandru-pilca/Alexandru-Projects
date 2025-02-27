@@ -10,7 +10,7 @@ const fishingElements = {
   fishImageContainer: document.getElementById("fishImageContainer"),
   tripCount: document.getElementById("tripCount"),
   baitInput: document.getElementById("bait"),
-   
+
 };
 
 document.addEventListener("DOMContentLoaded", () => {

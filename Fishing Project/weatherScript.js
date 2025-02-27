@@ -38,15 +38,15 @@ async function getFetchData(endPoint, city) {
 }
 
 function getWeatherIcon(id, sunrise, sunset) {
-    const currentTime = new Date().getTime() / 1000; // Get the current time in seconds
+    const currentTime = new Date().getTime() / 1000;// Get the current time in seconds
     const isNight = currentTime < sunrise || currentTime > sunset; // Check if it's night
-    
+
     // If it's night, return moon icon or cloud icon
     if (isNight) {
         if (id === 800) return 'moon.png';
         return 'cloud.png';
     }
-    
+
     // If it's daytime, proceed with your existing logic
     console.log(id);
     if (id <= 232) return 'thunderstorm.svg';
