@@ -98,7 +98,7 @@ button {
   border-radius: 20px;
 }
 
-button:hover {
+.fishing-container button:hover {
   background: #005bb5;
 }
 
@@ -149,7 +149,7 @@ li {
   border-width: 2px;
 }
 
-.delete-btn:hover {
+.fishing-container .delete-btn:hover {
   background: rgb(229, 8, 8);
 }
 
@@ -184,7 +184,7 @@ p {
 
 /* Styles for weather container */
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 
 .main-container {
   position: relative;
