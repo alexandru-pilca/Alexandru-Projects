@@ -1,6 +1,5 @@
-let trips = JSON.parse(localStorage.getItem("trips")) || [];
-
 const fishingElements = {
+  trips: JSON.parse(localStorage.getItem("trips")) || [],
   tripDate: document.getElementById("tripDate"),
   locationInput: document.getElementById("location"),
   fishSpecies: document.getElementById("fishSpecies"),
@@ -11,49 +10,62 @@ const fishingElements = {
   fishImageContainer: document.getElementById("fishImageContainer"),
   tripCount: document.getElementById("tripCount"),
   baitInput: document.getElementById("bait"),
+   
 };
 
 document.addEventListener("DOMContentLoaded", () => {
 
-
+  // Function to save trips to localStorage
   function saveTrips() {
     try {
-      localStorage.setItem("trips", JSON.stringify(trips));
+      localStorage.setItem("trips", JSON.stringify(fishingElements.trips));
     } catch (e) {
       console.error("Could not save trips to localStorage", e);
     }
   }
 
+  // Function to display trips in the list
   function displayTrips() {
     fishingElements.tripList.innerHTML = "";
-    trips.forEach((trip, index) => {
+    fishingElements.trips.forEach((trip, index) => {
       const li = document.createElement("li");
       li.innerHTML = `
-                <div class="trip-info">
-                    <span>${trip.date} - <b>${trip.location}</b> caught a <b>${trip.fish}</b> weighing <b>${trip.weight} kg</b> on <b>${trip.bait}
-                    </b></span>
-                    <img src="${trip.image}" alt="${trip.fish}" class="fish-icon">
-                </div>
-                <button class="delete-btn" data-index="${index}">
-                    <img src="fishImages/recycle-bin.png" alt="Delete" width="25" height="25">
-                </button>
-            `;
+        <div class="trip-info">
+          <span>${trip.date} - <b>${trip.location}</b> caught a <b>${trip.fish}</b> weighing <b>${trip.weight} kg</b> on <b>${trip.bait}</b></span>
+          <img src="${trip.image}" alt="${trip.fish}" class="fish-icon">
+        </div>
+        <button class="delete-btn" data-index="${index}">
+          <img src="fishImages/recycle-bin.png" alt="Delete" width="25" height="25">
+        </button>
+      `;
       fishingElements.tripList.appendChild(li);
     });
-    fishingElements.tripCount.textContent = trips.length;
+    fishingElements.tripCount.textContent = fishingElements.trips.length;
   }
 
+  // Function to capitalize the first letter of input fields
+  function capitalizeFirstLetter(inputElement) {
+    inputElement.addEventListener("input", function () {
+      const value = inputElement.value;
+      inputElement.value = value.charAt(0).toUpperCase() + value.slice(1);
+    });
+  }
 
+  // Apply the capitalizeFirstLetter function to the input fields
+  capitalizeFirstLetter(fishingElements.locationInput);
+  capitalizeFirstLetter(fishingElements.baitInput);
 
+  // Event listener for delete buttons
   fishingElements.tripList.addEventListener("click", (e) => {
     if (e.target.closest(".delete-btn")) {
       const index = e.target.closest(".delete-btn").dataset.index;
-      trips.splice(index, 1);
+      fishingElements.trips.splice(index, 1);
       saveTrips();
       displayTrips();
     }
   });
 
+  // Event listener for adding a new trip
   fishingElements.addTripBtn.addEventListener("click", () => {
     if (
       !fishingElements.tripDate.value ||
@@ -72,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ];
     const imgSrc = selectedOption.getAttribute("data-img");
 
-    trips.push({
+    fishingElements.trips.push({
       date: fishingElements.tripDate.value,
       location: fishingElements.locationInput.value.trim(),
       fish: fishingElements.fishSpecies.value,
@@ -88,24 +100,22 @@ document.addEventListener("DOMContentLoaded", () => {
     fishingElements.locationInput.value = "";
     fishingElements.fishSpecies.value = "";
     fishingElements.weightInput.value = "";
-    fishingElements.baitInput.value = ""; 
+    fishingElements.baitInput.value = "";
   });
 
+  // Event listener for clearing all trips
   fishingElements.clearTripsBtn.addEventListener("click", () => {
     if (confirm("Are you sure you want to clear all trips?")) {
-      trips = [];
+      fishingElements.trips = [];
       saveTrips();
       displayTrips();
     }
-
-
   });
 
-
-
+  // Display trips when the page is loaded
   displayTrips();
 
-
 });
+
 
 
