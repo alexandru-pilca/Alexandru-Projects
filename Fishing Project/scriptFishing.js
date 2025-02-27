@@ -9,14 +9,14 @@ const fishingElements = {
   tripList: document.getElementById("tripList"),
   clearTripsBtn: document.getElementById("clearTrips"),
   fishImageContainer: document.getElementById("fishImageContainer"),
-  tripCount : document.getElementById("tripCount"),
+  tripCount: document.getElementById("tripCount"),
   baitInput: document.getElementById("bait"),
 };
 
 document.addEventListener("DOMContentLoaded", () => {
- 
- 
-    function saveTrips() {
+
+
+  function saveTrips() {
     try {
       localStorage.setItem("trips", JSON.stringify(trips));
     } catch (e) {
@@ -43,8 +43,8 @@ document.addEventListener("DOMContentLoaded", () => {
     fishingElements.tripCount.textContent = trips.length;
   }
 
- 
- 
+
+
   fishingElements.tripList.addEventListener("click", (e) => {
     if (e.target.closest(".delete-btn")) {
       const index = e.target.closest(".delete-btn").dataset.index;
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const selectedOption =
       fishingElements.fishSpecies.options[
-        fishingElements.fishSpecies.selectedIndex
+      fishingElements.fishSpecies.selectedIndex
       ];
     const imgSrc = selectedOption.getAttribute("data-img");
 
@@ -100,14 +100,14 @@ document.addEventListener("DOMContentLoaded", () => {
       displayTrips();
     }
 
-    
+
   });
 
 
 
   displayTrips();
 
-  
+
 });
 
 

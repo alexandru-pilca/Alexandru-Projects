@@ -196,7 +196,7 @@ p {
   backdrop-filter: blur(15px);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   margin-right: 200px;
-  height: 470px;
+  height: 520px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 1);
   color: white;
 }
@@ -267,8 +267,8 @@ p {
 }
 
 .weather-summary-img {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
 }
 
 .weather-summary-info {
@@ -295,9 +295,24 @@ p {
   display: flex;
   gap: 12px;
   overflow-x: auto;
-  padding-bottom: 8px;
+  padding-bottom: 10px;
   padding-top: 20px;
+  overflow: auto;
+}
 
+.forecast-items-container::-webkit-scrollbar{
+  height: 8px;
+  padding-top: 20px;
+}
+
+.forecast-items-container::-webkit-scrollbar-trak{
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 99px;
+}
+
+.forecast-items-container::-webkit-scrollbar-thumb{
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 99px;
 }
 
 .forecast-item {
@@ -346,4 +361,8 @@ p {
       min-width: 60px;
       padding: 8px;
   }
+}
+
+.country-txt{
+  font-size: x-large;
 }

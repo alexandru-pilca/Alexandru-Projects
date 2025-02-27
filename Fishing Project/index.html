@@ -1,133 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fishing Trip Logger and Weather App</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-    
-    <script src="weatherScript.js" defer></script>  
-     
-    
-  </head>
-  <body>
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+    <script src="weatherScript.js" defer></script>
+
+
+</head>
+
+<body>
     <div class="main-fishing-container">
-      <!-- Fishing Section -->
-      <div class="fishing-container">
-        <h1 class="logo-title outlined-text">
-          <img src="fishImages/fishing-logo.avif" alt="Fishing Logo" class="logo-img" />
-          Fishing Trip Logger
-        </h1>
+        <!-- Fishing Section -->
+        <div class="fishing-container">
+            <h1 class="logo-title outlined-text">
+                <img src="fishImages/fishing-logo.avif" alt="Fishing Logo" class="logo-img" />
+                Fishing Trip Logger
+            </h1>
 
-        
 
-        <div class="input-section">
-          <input type="date" id="tripDate" />
-          <input type="text" id="location" placeholder="Fishing Location" />
-          <select id="fishSpecies">
-            <option value="" disabled selected>Select Fish Species</option>
-            <option value="Bass" data-img="fishImages/bass.jpg">Bass</option>
-            <option value="Trout" data-img="fishImages/trout.jpg">Trout</option>
-            <option value="Salmon" data-img="fishImages/salmon.jpg">Salmon</option>
-            <option value="Catfish" data-img="fishImages/catfish.webp">Catfish</option>
-            <option value="Pike" data-img="fishImages/pike.jpg">Pike</option>
-            <option value="Common Carp" data-img="fishImages/common-carp.webp">Common Carp</option>
-            <option value="Mirror Carp" data-img="fishImages/Mirror_Carp.png">Mirror Carp</option>
-            <option value="Koi Carp" data-img="fishImages/koi-carp.webp">Koi Carp</option>
-            <option value="Grass Carp" data-img="fishImages/grass-carp.png">Grass Carp</option>
-            <option value="Gibel Carp" data-img="fishImages/Gibel_carp.webp">Gibel Carp</option>
-            <option value="Zander" data-img="fishImages/zander.jpg">Zander</option>
-            <option value="Pearch" data-img="fishImages/pearch.jpg">Pearch</option>
-          </select>
 
-          <input type="number" id="weight" placeholder="Weight (kg)" />
-          <input type="text" id="bait" placeholder="Bait" />
-          <button id="addTrip">Add Trip</button>
+            <div class="input-section">
+                <input type="date" id="tripDate" />
+                <input type="text" id="location" placeholder="Fishing Location" />
+                <select id="fishSpecies">
+                    <option value="" disabled selected>Select Fish Species</option>
+                    <option value="Bass" data-img="fishImages/bass.jpg">Bass</option>
+                    <option value="Trout" data-img="fishImages/trout.jpg">Trout</option>
+                    <option value="Salmon" data-img="fishImages/salmon.jpg">Salmon</option>
+                    <option value="Catfish" data-img="fishImages/catfish.webp">Catfish</option>
+                    <option value="Pike" data-img="fishImages/pike.jpg">Pike</option>
+                    <option value="Common Carp" data-img="fishImages/common-carp.webp">Common Carp</option>
+                    <option value="Mirror Carp" data-img="fishImages/Mirror_Carp.png">Mirror Carp</option>
+                    <option value="Koi Carp" data-img="fishImages/koi-carp.webp">Koi Carp</option>
+                    <option value="Grass Carp" data-img="fishImages/grass-carp.png">Grass Carp</option>
+                    <option value="Gibel Carp" data-img="fishImages/Gibel_carp.webp">Gibel Carp</option>
+                    <option value="Zander" data-img="fishImages/zander.jpg">Zander</option>
+                    <option value="Pearch" data-img="fishImages/pearch.jpg">Pearch</option>
+                </select>
+
+                <input type="number" id="weight" placeholder="Weight (kg)" />
+                <input type="text" id="bait" placeholder="Bait" />
+                <button id="addTrip">Add Trip</button>
+            </div>
+
+            <h2>Fishing Trips 📝</h2>
+            <ul id="tripList"></ul>
+            <div>
+                <p>Total trips: <span id="tripCount">0</span></p>
+            </div>
+            <button id="clearTrips" class="delete-all">Clear All Trips</button>
         </div>
 
-        <h2>Fishing Trips 📝</h2>
-        <ul id="tripList"></ul>
-        <div>
-          <p>Total trips: <span id="tripCount">0</span></p>
-        </div>
-        <button id="clearTrips" class="delete-all">Clear All Trips</button>
-      </div>
+        <!-- Weather Section -->
+        <main class="main-container">
 
-      <!-- Weather Section -->
-      <main class="main-container">
-    
-        <header class="input-container">
-            <input class="city-input" placeholder="Search City" type="text">
-            <button class="search-btn">
-                <span class="material-symbols-outlined">search</span>
-            </button>
-        </header>
-    
-        <section class="weather-info" style="display: none;">
-            <div class="location-date-container">
-                <div class="location">
-                    <span class="material-symbols-outlined">location_on</span>
-                    <h4 class="country-txt">Slovenia</h4>
+            <header class="input-container">
+                <input class="city-input" placeholder="Search City" type="text">
+                <button class="search-btn">
+                    <span class="material-symbols-outlined">search</span>
+                </button>
+            </header>
+
+            <section class="weather-info" style="display: none;">
+                <div class="location-date-container">
+                    <div class="location">
+                        <span class="material-symbols-outlined">location_on</span>
+                        <h4 class="country-txt">Slovenia</h4>
+                    </div>
+                    <h5 class="current-date-txt regular-txt">Wed, 26 Feb</h5>
                 </div>
-                <h5 class="current-date-txt regular-txt">Wed, 26 Feb</h5>
-            </div>
-            
-            <div class="weather-summary-container">
-                <img src="assets/weather/clouds.svg" class="weather-summary-img">
-                <div class="weather-summary-info">
-                    <h1 class="temp-txt">29 ℃</h1>
-                    <h3 class="conditions-txt regular-txt">Clouds</h3>
-                </div>
-            </div>
-            <div class="weather-condition-container">
-                <div class="condition-item">
-                    <span class="material-symbols-outlined">
-                        water_drop
-                    </span>
-                    <div class="condition-info">
-                        <h5 class="regular-txt">Humidity</h5>
-                        <h5 class="humidity-value-txt">55%</h5>
+
+                <div class="weather-summary-container">
+                    <img src="assets/weather/clouds.svg" class="weather-summary-img">
+                    <div class="weather-summary-info">
+                        <h1 class="temp-txt">29 ℃</h1>
+                        <h3 class="conditions-txt regular-txt">Clouds</h3>
                     </div>
                 </div>
-    
-                <div class="condition-item">
-                    <span class="material-symbols-outlined">air</span>
-                    <div class="condition-info">
-                        <h5 class="regular-txt">Wind Speed</h5>
-                        <h5 class="wind-value-txt">2 M/s</h5>
+                <div class="weather-condition-container">
+                    <div class="condition-item">
+                        <span class="material-symbols-outlined">
+                            water_drop
+                        </span>
+                        <div class="condition-info">
+                            <h5 class="regular-txt">Humidity</h5>
+                            <h5 class="humidity-value-txt">55%</h5>
+                        </div>
+                    </div>
+
+                    <div class="condition-item">
+                        <span class="material-symbols-outlined">air</span>
+                        <div class="condition-info">
+                            <h5 class="regular-txt">Wind Speed</h5>
+                            <h5 class="wind-value-txt">2 M/s</h5>
+                        </div>
                     </div>
                 </div>
-            </div>
-    
-            <div class="forecast-items-container">
-                <div class="forecast-item">
-                    <h5 class="forecast-item-date regular-txt">26 Feb</h5>
-                    <img src="assets/weather/clouds.svg" class="forecast-item-img">
-                    <h5 class="forecast-item-temp">29 ℃</h5>
-                </div>
-            </div>
-        </section>
-    
-        <section class="search-city section-message">
-            <img src="assets/message/search-city.png" class="src">
-            <div>
-                <h1>Search City</h1>
-                <h4 class="regular-txt">Find out the weather conditions of the city</h4>
-            </div>
-        </section>
-    
-        <section class="not-found section-message" style="display: none;">
-            <img class="message-img" src="assets/message/not-found.png" class="src">
-            <div>
-                <h1>City Not Found</h1>
-                <h4 class="regular-txt">Try searching for another city</h4>
-            </div>
-        </section>
-    </main>
 
-    
-    <script src="scriptFishing.js"></script>
-  </body>
+                <div class="forecast-items-container">
+                    <div class="forecast-item">
+                        <h5 class="forecast-item-date regular-txt">26 Feb</h5>
+                        <img src="assets/weather/clouds.svg" class="forecast-item-img">
+                        <h5 class="forecast-item-temp">29 ℃</h5>
+                    </div>
+                </div>
+            </section>
+
+            <section class="search-city section-message">
+                <img src="assets/message/search-city.png" class="src">
+                <div>
+                    <h1>Search City</h1>
+                    <h4 class="regular-txt">Find out the weather conditions of the city</h4>
+                </div>
+            </section>
+
+            <section class="not-found section-message" style="display: none;">
+                <img class="message-img" src="assets/message/not-found.png" class="src">
+                <div>
+                    <h1>City Not Found</h1>
+                    <h4 class="regular-txt">Try searching for another city</h4>
+                </div>
+            </section>
+        </main>
+
+
+        <script src="scriptFishing.js"></script>
+</body>
+
 </html>

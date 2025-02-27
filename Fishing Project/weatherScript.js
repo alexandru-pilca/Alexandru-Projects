@@ -1,41 +1,54 @@
-const cityInput = document.querySelector('.city-input');
-const searchBtn = document.querySelector('.search-btn');
-const notFound = document.querySelector('.not-found');
-const apiKey = "635f8fdd8d70254799ea58b5997f56d7";
-const searchCitySection = document.querySelector('.search-city');
-const weatherInfoSection = document.querySelector('.weather-info');
-const countryTxt = document.querySelector('.country-txt');
-const tempTxt = document.querySelector('.temp-txt');
-const conditionTxt = document.querySelector('.condition-txt');
-const humidityValueTxt = document.querySelector('.humidity-value-txt');
-const windValueTxt = document.querySelector('.wind-value-txt');
-const weatherSummaryImg = document.querySelector('.weather-summary-img');
-const currentDateTxt = document.querySelector('.current-date-txt');
-const forecastItemsContainer = document.querySelector('.forecast-items-container');
+const elements = {
+    cityInput: document.querySelector('.city-input'),
+    searchBtn: document.querySelector('.search-btn'),
+    notFound: document.querySelector('.not-found'),
+    apiKey: "635f8fdd8d70254799ea58b5997f56d7",
+    searchCitySection: document.querySelector('.search-city'),
+    weatherInfoSection: document.querySelector('.weather-info'),
+    countryTxt: document.querySelector('.country-txt'),
+    tempTxt: document.querySelector('.temp-txt'),
+    conditionTxt: document.querySelector('.condition-txt'),
+    humidityValueTxt: document.querySelector('.humidity-value-txt'),
+    windValueTxt: document.querySelector('.wind-value-txt'),
+    weatherSummaryImg: document.querySelector('.weather-summary-img'),
+    currentDateTxt: document.querySelector('.current-date-txt'),
+    forecastItemsContainer: document.querySelector('.forecast-items-container')
+};
 
-searchBtn.addEventListener('click', () => {
-    if (cityInput.value.trim() !== '') {
-        updateWeatherInfo(cityInput.value);
-        cityInput.value = '';
-        cityInput.blur();
+elements.searchBtn.addEventListener('click', () => {
+    if (elements.cityInput.value.trim() !== '') {
+        updateWeatherInfo(elements.cityInput.value);
+        elements.cityInput.value = '';
+        elements.cityInput.blur();
     }
 });
 
-cityInput.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter' && cityInput.value.trim() !== '') {
-        updateWeatherInfo(cityInput.value);
-        cityInput.value = '';
-        cityInput.blur();
+elements.cityInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' && elements.cityInput.value.trim() !== '') {
+        updateWeatherInfo(elements.cityInput.value);
+        elements.cityInput.value = '';
+        elements.cityInput.blur();
     }
 });
 
 async function getFetchData(endPoint, city) {
-    const apiUrl = `https://api.openweathermap.org/data/2.5/${endPoint}?q=${city}&appid=${apiKey}&units=metric`;
+    const apiUrl = `https://api.openweathermap.org/data/2.5/${endPoint}?q=${city}&appid=${elements.apiKey}&units=metric`;
     const response = await fetch(apiUrl);
     return response.json();
 }
 
-function getWeatherIcon(id) {
+function getWeatherIcon(id, sunrise, sunset) {
+    const currentTime = new Date().getTime() / 1000; // Get the current time in seconds
+    const isNight = currentTime < sunrise || currentTime > sunset; // Check if it's night
+    
+    // If it's night, return moon icon or cloud icon
+    if (isNight) {
+        if (id === 800) return 'moon.png';
+        return 'cloud.png';
+    }
+    
+    // If it's daytime, proceed with your existing logic
+    console.log(id);
     if (id <= 232) return 'thunderstorm.svg';
     if (id <= 321) return 'drizzle.svg';
     if (id <= 531) return 'rain.svg';
@@ -55,7 +68,7 @@ async function updateWeatherInfo(city) {
     const weatherData = await getFetchData('weather', city);
 
     if (weatherData.cod !== 200) {
-        showDisplaySection(notFound);
+        showDisplaySection(elements.notFound);
         return;
     }
 
@@ -63,38 +76,52 @@ async function updateWeatherInfo(city) {
 
     const {
         name,
-        sys: { country },
+        sys: { country, sunrise, sunset },
         main: { temp, humidity },
         weather: [{ id, main }],
         wind: { speed },
     } = weatherData;
 
     // Ensure elements exist before setting textContent
-    if (countryTxt) countryTxt.textContent = `${name}, ${country}`;
-    if (tempTxt) tempTxt.textContent = `${Math.round(temp)}°C`;
-    if (conditionTxt) conditionTxt.textContent = main;
-    if (humidityValueTxt) humidityValueTxt.textContent = `${humidity}%`;
-    if (windValueTxt) windValueTxt.textContent = `${speed} km/h`;
+    if (elements.countryTxt) elements.countryTxt.textContent = `${name}, ${country}`;
+    if (elements.tempTxt) elements.tempTxt.textContent = `${Math.round(temp)}°C`;
+    if (elements.conditionTxt) elements.conditionTxt.textContent = main;
+    if (elements.humidityValueTxt) elements.humidityValueTxt.textContent = `${humidity}%`;
+    if (elements.windValueTxt) elements.windValueTxt.textContent = `${speed} km/h`;
 
-    if (currentDateTxt) currentDateTxt.textContent = getCurrentDate();
-    if (weatherSummaryImg) weatherSummaryImg.src = `assets/weather/${getWeatherIcon(id)}`;
+    if (elements.currentDateTxt) elements.currentDateTxt.textContent = getCurrentDate();
+    if (elements.weatherSummaryImg) elements.weatherSummaryImg.src = `assets/weather/${getWeatherIcon(id, sunrise, sunset)}`;
 
     await updateForecastInfo(city);
 
-    showDisplaySection(weatherInfoSection);
+    showDisplaySection(elements.weatherInfoSection);
 }
 
 async function updateForecastInfo(city) {
     const forecastData = await getFetchData('forecast', city);
-    const timeTaken = '12:00:00';
-    const todayDate = new Date().toISOString().split('T')[0];
+    const todayDate = new Date().toISOString().split('T')[0]; // Get today's date
 
-    forecastItemsContainer.innerHTML = '';
+    elements.forecastItemsContainer.innerHTML = '';
+
+    // Create an object to group forecasts by day
+    const dailyForecasts = {};
 
     forecastData.list.forEach(forecastWeather => {
-        if (forecastWeather.dt_txt.includes(timeTaken) && !forecastWeather.dt_txt.includes(todayDate)) {
-            updateForecastItems(forecastWeather);
+        const forecastDate = forecastWeather.dt_txt.split(' ')[0];  // Extract date part
+        if (!dailyForecasts[forecastDate]) {
+            dailyForecasts[forecastDate] = forecastWeather;  // Store the first forecast of each day
         }
+    });
+
+    // Get the keys of the grouped daily forecasts, filter out today's forecast, and limit to 5 days
+    const forecastDates = Object.keys(dailyForecasts)
+        .filter(date => date !== todayDate)  // Remove today's forecast
+        .slice(0, 5);  // Limit to 5 days
+
+    // For each of the 5 days, update the forecast item
+    forecastDates.forEach(date => {
+        const weatherData = dailyForecasts[date];
+        updateForecastItems(weatherData);
     });
 }
 
@@ -103,6 +130,7 @@ function updateForecastItems(weatherData) {
         dt_txt: date,
         main: { temp },
         weather: [{ id }],
+
     } = weatherData;
 
     const dateTaken = new Date(date);
@@ -117,13 +145,14 @@ function updateForecastItems(weatherData) {
         </div>
     `;
 
-    forecastItemsContainer.insertAdjacentHTML('beforeend', forecastItem);
+    elements.forecastItemsContainer.insertAdjacentHTML('beforeend', forecastItem);
 }
 
 function showDisplaySection(section) {
-    [weatherInfoSection, searchCitySection, notFound].forEach(sec => {
+    [elements.weatherInfoSection, elements.searchCitySection, elements.notFound].forEach(sec => {
         if (sec) sec.style.display = 'none';
     });
 
     if (section) section.style.display = 'flex';
 }
+

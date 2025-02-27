@@ -1,93 +1,68 @@
 --Weather app PL/SQL
 
-declare
-   v_city         varchar2(100);
-   v_api_key      varchar2(50) := '635f8fdd8d70254799ea58b5997f56d7';
-   v_url          varchar2(4000);
-   v_response     clob;
-   v_temp         number;
-   v_humidity     number;
-   v_wind_speed   number;
-   v_weather_des  varchar2(100);
-   v_current_time number;
-   v_sunrise_time number;
-   v_sunset_time  number;
-   v_icon         varchar2(100);
+CREATE TABLE weather_data (
+    city VARCHAR2(100) primary key,
+    country VARCHAR2(10),
+    temperature NUMBER(5,2),
+    weather_condition VARCHAR2(50),
+    humidity NUMBER(5,2),
+    wind_speed NUMBER(5,2),
+    recorded_at TIMESTAMP DEFAULT SYSTIMESTAMP,
+    CONSTRAINT weather_pk PRIMARY KEY (city, recorded_at)	
+);
+
+
+create or replace procedure ins_weather_data (
+     p_city VARCHAR2,
+      p_country VARCHAR2,
+     p_temp number,
+     p_weather_con VARCHAR2,
+     p_humidity number,
+     p_wind number,
+     p_rec_time TIMESTAMP
+) is
+
 begin
-   v_url := 'https://api.openweathermap.org/data/2.5/weather?units=metric&q='
-            || v_city
-            || '&appid='
-            || v_api_key;
-   v_response := null;
-   begin
-      select utl_http.request(v_url)
-        into v_response
-        from dual;
-   exception
-      when others then
-         dbms_output.put_line('Error fetching weather data.');
-         return;
-   end;
+
+insert into weather_data( city, country, temperature, weather_condition, humidity, wind_speed, recorded_at)
+values (p_city, p_country, p_temp, p_weather_con, p_humidity, p_wind, p_rec_time);
+
+commit;
+
+DBMS_OUTPUT.PUT_LINE('Weather data inserted for ' || p_city || ' successfully.');
+
+end ins_weather_data;
 
 
-   v_temp := json_value(v_response,
-           '$.main.temp');
-   v_humidity := json_value(v_response,
-           '$.main.humidity');
-   v_wind_speed := json_value(v_response,
-           '$.wind.speed');
-   v_weather_desc := json_value(v_response,
-           '$.weather[0].main');
-   v_current_time := json_value(v_response,
-           '$.dt');
-   v_sunrise_time := json_value(v_response,
-           '$.sys.sunrise');
-   v_sunset_time := json_value(v_response,
-           '$.sys.sunset');
-   if v_current_time < v_sunrise_time
-   or v_current_time > v_sunset_time then
-      if v_weather_desc = 'Clouds' then
-         v_icon := 'images/cloudy_night.png';
-      elsif v_weather_desc = 'Clear' then
-         v_icon := 'images/moon.png';
-      elsif v_weather_desc = 'Snow' then
-         v_icon := 'images/snow_night.png';
-      elsif v_weather_desc = 'Rain' then
-         v_icon := 'images/rain_night.png';
-      else
-         v_icon := 'images/mist_night.png';
-      end if;
-   else
-      if v_weather_desc = 'Clouds' then
-         v_icon := 'images/cloudy.png';
-      elsif v_weather_desc = 'Clear' then
-         v_icon := 'images/sun.png';
-      elsif v_weather_desc = 'Snow' then
-         v_icon := 'images/snow.png';
-      elsif v_weather_desc = 'Rain' then
-         v_icon := 'images/rain.png';
-      else
-         v_icon := 'images/mist.png';
-      end if;
-   end if;
 
 
-   dbms_output.put_line('City: ' || v_city);
-   dbms_output.put_line('Temperature: '
-                        || v_temp
-                        || '°C');
-   dbms_output.put_line('Humidity: '
-                        || v_humidity
-                        || '%');
-   dbms_output.put_line('Wind Speed: '
-                        || v_wind_speed
-                        || ' km/h');
-   dbms_output.put_line('Weather: ' || v_weather_desc);
-   dbms_output.put_line('Icon: ' || v_icon);
-exception
-   when others then
-      dbms_output.put_line('An error occurred.');
-end; 
+
+create or replace procedure get_weather_data (p_city VARCHAR2) is
+v_count NUMBER;
+begin 
+
+SELECT COUNT(*) INTO v_count FROM weather_data WHERE city = p_city;
+
+    IF v_count = 0 THEN
+        DBMS_OUTPUT.PUT_LINE('No weather data found for ' || p_city || '.');
+        RETURN;
+    END IF;
+
+for rec in (select * from weather_data where city = p_city) loop
+DBMS_OUTPUT.PUT_LINE('City: ' || rec.city || ', Country: ' || rec.country);
+        DBMS_OUTPUT.PUT_LINE('Temperature: ' || rec.temperature || '°C');
+        DBMS_OUTPUT.PUT_LINE('Condition: ' || rec.weather_condition);
+        DBMS_OUTPUT.PUT_LINE('Humidity: ' || rec.humidity || '%');
+        DBMS_OUTPUT.PUT_LINE('Wind Speed: ' ||rec.wind_speed || ' km/h');
+        DBMS_OUTPUT.PUT_LINE('Recorded At: ' || TO_CHAR(rec.recorded_at, 'YYYY-MM-DD HH24:MI:SS'));
+
+        end loop;
+
+        end get_weather_data;
+
+
+
+
 
 
 --Fishing app PL/SQL
