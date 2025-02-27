@@ -79,7 +79,6 @@ document.addEventListener("DOMContentLoaded", () => {
       weight: fishingElements.weightInput.value,
       image: imgSrc,
       bait: fishingElements.baitInput.value,
-
     });
 
     saveTrips();
@@ -89,8 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
     fishingElements.locationInput.value = "";
     fishingElements.fishSpecies.value = "";
     fishingElements.weightInput.value = "";
-    fishingElements.baitInput.value = "";
-    fishingElements.fishImageContainer.innerHTML = "";
+    fishingElements.baitInput.value = ""; 
   });
 
   fishingElements.clearTripsBtn.addEventListener("click", () => {
