@@ -54,7 +54,8 @@ function getWeatherIcon(id, sunrise, sunset) {
     if (id <= 321) return 'drizzle.svg';
     if (id <= 531) return 'rain.svg';
     if (id <= 622) return 'snow.svg';
-    if (id <= 781) return 'mist.svg';
+    if (id <= 701) return 'atmosphere.svg';
+    if (id <= 500) return 'light-rain.png';
     if (id === 800) return 'clear.svg';
     return 'cloud.png';
 }
