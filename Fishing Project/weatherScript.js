@@ -1,3 +1,4 @@
+
 const elements = {
     cityInput: document.querySelector('.city-input'),
     searchBtn: document.querySelector('.search-btn'),
@@ -7,7 +8,7 @@ const elements = {
     weatherInfoSection: document.querySelector('.weather-info'),
     countryTxt: document.querySelector('.country-txt'),
     tempTxt: document.querySelector('.temp-txt'),
-    conditionTxt: document.querySelector('.condition-txt'),
+    conditionTxt: document.querySelector('.conditions-txt'),
     humidityValueTxt: document.querySelector('.humidity-value-txt'),
     windValueTxt: document.querySelector('.wind-value-txt'),
     weatherSummaryImg: document.querySelector('.weather-summary-img'),
@@ -55,7 +56,7 @@ function getWeatherIcon(id, sunrise, sunset) {
     if (id <= 622) return 'snow.svg';
     if (id <= 781) return 'mist.svg';
     if (id === 800) return 'clear.svg';
-    return 'clouds.svg';
+    return 'cloud.png';
 }
 
 function getCurrentDate() {

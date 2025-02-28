@@ -37,6 +37,16 @@ function displayTrips() {
   fishingElements.tripCount.textContent = fishingElements.trips.length;
 }
 
+// Function to capitalize the first letter of the input
+function capitalizeFirstLetter(inputElement) {
+  inputElement.addEventListener("input", function () {
+    const value = inputElement.value;
+    inputElement.value = value.charAt(0).toUpperCase() + value.slice(1);
+  });
+}
+
+capitalizeFirstLetter(fishingElements.locationInput);
+  capitalizeFirstLetter(fishingElements.baitInput);
 
 
 // Event listener for adding a new trip
