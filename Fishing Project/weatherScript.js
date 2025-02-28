@@ -55,7 +55,8 @@ if (id <= 321) return 'drizzle.svg';
 if (id >= 502 && id <= 531) return 'rain.svg'; 
 if (id >= 500 && id <= 501) return 'light-rain.png';        
 if (id >= 600 && id <= 622) return 'snow.svg';  
-if (id >= 701 && id <= 741) return 'atmosphere.svg'; 
+if (id >= 701 && id <= 731) return 'atmosphere.svg'; 
+if (id === 741) return 'fog.png'; 
 if (id === 800) return 'clear.svg';            
 
 return 'cloud.png';
@@ -88,7 +89,7 @@ async function updateWeatherInfo(city) {
     // Ensure elements exist before setting textContent
     if (elements.countryTxt) elements.countryTxt.textContent = `${name}, ${country}`;
     if (elements.tempTxt) elements.tempTxt.textContent = `${Math.round(temp)}°C`;
-    if (elements.conditionTxt) elements.conditionTxt.textContent = main;
+    if (elements.conditionTxt) elements.conditionTxt.textContent =main;
     if (elements.humidityValueTxt) elements.humidityValueTxt.textContent = `${humidity}%`;
     if (elements.windValueTxt) elements.windValueTxt.textContent = `${speed} km/h`;
 
