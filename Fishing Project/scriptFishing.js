@@ -25,8 +25,8 @@ function saveTrips() {
 function displayTrips() {
   fishingElements.tripList.innerHTML = "";
   fishingElements.trips.forEach((trip, index) => {
-      const li = document.createElement("li");
-      li.innerHTML = `
+    const li = document.createElement("li");
+    li.innerHTML = `
           <div class="trip-info">
               <span>${trip.date} - <b>${trip.location}</b> caught a <b>${trip.fish}</b> weighing <b>${trip.weight} kg</b> on <b>${trip.bait}</b></span>
               <img src="${trip.image}" alt="${trip.fish}" class="fish-icon">
@@ -37,7 +37,7 @@ function displayTrips() {
               <img src="fishImages/recycle-bin.png" alt="Delete" width="25" height="25">
           </button>
       `;
-      fishingElements.tripList.appendChild(li);
+    fishingElements.tripList.appendChild(li);
   });
 
   fishingElements.tripCount.textContent = fishingElements.trips.length;
@@ -53,7 +53,7 @@ function capitalizeFirstLetter(inputElement) {
 }
 
 capitalizeFirstLetter(fishingElements.locationInput);
-  capitalizeFirstLetter(fishingElements.baitInput);
+capitalizeFirstLetter(fishingElements.baitInput);
 
 // Function to toggle popup
 function togglePopup() {
@@ -83,23 +83,25 @@ fishingElements.saveCommentBtn.addEventListener("click", () => {
 // Event listener for adding a new trip
 fishingElements.addTripBtn.addEventListener("click", () => {
   if (!fishingElements.tripDate.value || !fishingElements.locationInput.value.trim() ||
-      !fishingElements.fishSpecies.value || !fishingElements.weightInput.value ||
-      !fishingElements.baitInput.value.trim()) {
-      alert("Please fill in all fields!");
-      return;
+    !fishingElements.fishSpecies.value || !fishingElements.weightInput.value ||
+    !fishingElements.baitInput.value.trim()) {
+    alert("Please fill in all fields!");
+    return;
   }
+
+
 
   const selectedOption = fishingElements.fishSpecies.options[fishingElements.fishSpecies.selectedIndex];
   const imgSrc = selectedOption.getAttribute("data-img");
 
   fishingElements.trips.push({
-      date: fishingElements.tripDate.value,
-      location: fishingElements.locationInput.value.trim(),
-      fish: fishingElements.fishSpecies.value,
-      weight: fishingElements.weightInput.value,
-      bait: fishingElements.baitInput.value,
-      image: imgSrc,
-      comment: "", // Initialize comment as empty
+    date: fishingElements.tripDate.value,
+    location: fishingElements.locationInput.value.trim(),
+    fish: fishingElements.fishSpecies.value,
+    weight: fishingElements.weightInput.value,
+    bait: fishingElements.baitInput.value,
+    image: imgSrc,
+    comment: "", // Initialize comment as empty
   });
 
   saveTrips();
@@ -116,19 +118,19 @@ fishingElements.addTripBtn.addEventListener("click", () => {
 // Event listener for deleting a trip
 fishingElements.tripList.addEventListener("click", (e) => {
   if (e.target.closest(".delete-btn")) {
-      const index = e.target.closest(".delete-btn").dataset.index;
-      fishingElements.trips.splice(index, 1);
-      saveTrips();
-      displayTrips();
+    const index = e.target.closest(".delete-btn").dataset.index;
+    fishingElements.trips.splice(index, 1);
+    saveTrips();
+    displayTrips();
   }
 });
 
 // Event listener for clearing all trips
 fishingElements.clearTripsBtn.addEventListener("click", () => {
   if (confirm("Are you sure you want to clear all trips?")) {
-      fishingElements.trips = [];
-      saveTrips();
-      displayTrips();
+    fishingElements.trips = [];
+    saveTrips();
+    displayTrips();
   }
 });
 
@@ -148,6 +150,18 @@ document.getElementById("commentInput").addEventListener("input", function () {
   if (this.value.length === 1 && this.value !== "•") {
     this.value = "• " + this.value;
   }
+});
+
+// Close popup if clicking outside of it
+document.addEventListener("click", (e) => {
+  if (fishingElements.popup.style.display === "block" && !fishingElements.popup.contains(e.target) && !fishingElements.tripList.contains(e.target)) {
+    togglePopup();
+  }
+});
+
+// Prevent the popup from closing when clicking inside the popup
+fishingElements.popup.addEventListener("click", (e) => {
+  e.stopPropagation();
 });
 
 
