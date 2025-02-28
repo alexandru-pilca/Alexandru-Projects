@@ -156,3 +156,19 @@ create or replace package body del_fishing_trip is
    end del_all_trips;
 
 end del_fishing_trip;
+
+
+
+alter table fishing_trips add Additional_Info varchar2(500);
+
+create or replace procedure ins_info(
+   p_id number,
+   p_info varchar2
+) IS
+begin 
+   update fishing_trips
+      set Additional_Info = p_info
+    where id = p_id;
+   commit;
+   dbms_output.put_line('Additional info added successfully.');
+end ins_info;  
