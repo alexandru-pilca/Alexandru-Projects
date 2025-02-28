@@ -53,9 +53,9 @@ console.log(id);
     if (id <= 232) return 'thunderstorm.svg';
 if (id <= 321) return 'drizzle.svg';
 if (id >= 502 && id <= 531) return 'rain.svg'; 
-if (id === 500) return 'light-rain.png';        
+if (id >= 500 && id <= 501) return 'light-rain.png';        
 if (id >= 600 && id <= 622) return 'snow.svg';  
-if (id >= 701 && id <= 781) return 'atmosphere.svg'; 
+if (id >= 701 && id <= 741) return 'atmosphere.svg'; 
 if (id === 800) return 'clear.svg';            
 
 return 'cloud.png';

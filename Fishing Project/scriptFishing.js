@@ -163,5 +163,3 @@ document.addEventListener("click", (e) => {
 fishingElements.popup.addEventListener("click", (e) => {
   e.stopPropagation();
 });
-
-
