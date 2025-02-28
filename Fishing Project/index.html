@@ -130,7 +130,17 @@
         </main>
 
     </div>
-   
+
+    <!-- Additional Info container -->
+    <div class="popup" id="popup-1">
+        <div class="overlay" onclick="togglePopup()"></div>
+        <div class="content">
+            <div class="close-btn" onclick="togglePopup()">&times;</div>
+            <h1>Additional Information</h1>
+            <textarea id="commentInput" placeholder="Enter information"></textarea>
+            <button id="saveComment">Save</button>
+        </div>
+    </div>
 
         <script src="scriptFishing.js"></script>
 </body>

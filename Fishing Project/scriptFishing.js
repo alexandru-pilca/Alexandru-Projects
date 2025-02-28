@@ -9,9 +9,12 @@ const fishingElements = {
   tripList: document.getElementById("tripList"),
   clearTripsBtn: document.getElementById("clearTrips"),
   tripCount: document.getElementById("tripCount"),
+  commentInput: document.getElementById("commentInput"),
+  saveCommentBtn: document.getElementById("saveComment"),
+  popup: document.getElementById("popup-1"),
 };
 
-let currentTripIndex = null; // To track which trip's comment is being edited
+let currentTripIndex = null; // Track which trip is being edited
 
 // Function to save trips to localStorage
 function saveTrips() {
@@ -28,14 +31,18 @@ function displayTrips() {
               <span>${trip.date} - <b>${trip.location}</b> caught a <b>${trip.fish}</b> weighing <b>${trip.weight} kg</b> on <b>${trip.bait}</b></span>
               <img src="${trip.image}" alt="${trip.fish}" class="fish-icon">
           </div>
+         
+          <button class="add-comment-btn" data-index="${index}">View/Add Trip Info</button>
           <button class="delete-btn" data-index="${index}">
               <img src="fishImages/recycle-bin.png" alt="Delete" width="25" height="25">
           </button>
       `;
       fishingElements.tripList.appendChild(li);
   });
+
   fishingElements.tripCount.textContent = fishingElements.trips.length;
 }
+
 
 // Function to capitalize the first letter of the input
 function capitalizeFirstLetter(inputElement) {
@@ -48,6 +55,30 @@ function capitalizeFirstLetter(inputElement) {
 capitalizeFirstLetter(fishingElements.locationInput);
   capitalizeFirstLetter(fishingElements.baitInput);
 
+// Function to toggle popup
+function togglePopup() {
+  fishingElements.popup.style.display =
+    fishingElements.popup.style.display === "block" ? "none" : "block";
+}
+
+// Event listener to open popup for a specific trip
+fishingElements.tripList.addEventListener("click", (e) => {
+  if (e.target.classList.contains("add-comment-btn")) {
+    currentTripIndex = e.target.dataset.index;
+    fishingElements.commentInput.value = fishingElements.trips[currentTripIndex].comment || "";
+    togglePopup();
+  }
+});
+
+// Event listener for saving a comment
+fishingElements.saveCommentBtn.addEventListener("click", () => {
+  if (currentTripIndex !== null) {
+    fishingElements.trips[currentTripIndex].comment = fishingElements.commentInput.value.trim();
+    saveTrips();
+    displayTrips();
+    togglePopup();
+  }
+});
 
 // Event listener for adding a new trip
 fishingElements.addTripBtn.addEventListener("click", () => {
@@ -68,21 +99,19 @@ fishingElements.addTripBtn.addEventListener("click", () => {
       weight: fishingElements.weightInput.value,
       bait: fishingElements.baitInput.value,
       image: imgSrc,
-      
+      comment: "", // Initialize comment as empty
   });
 
   saveTrips();
   displayTrips();
+
+  // Reset input fields
   fishingElements.tripDate.value = "";
   fishingElements.locationInput.value = "";
   fishingElements.fishSpecies.value = "";
   fishingElements.weightInput.value = "";
   fishingElements.baitInput.value = "";
 });
-
-
-
-
 
 // Event listener for deleting a trip
 fishingElements.tripList.addEventListener("click", (e) => {
@@ -107,5 +136,18 @@ fishingElements.clearTripsBtn.addEventListener("click", () => {
 document.addEventListener("DOMContentLoaded", displayTrips);
 
 
+// Add bullet points when pressing Enter key in the comment input
+document.getElementById("commentInput").addEventListener("keydown", function (event) {
+  if (event.key === "Enter") {
+    event.preventDefault(); // Prevents default new line behavior
+    this.value += "\n• "; // Adds a bullet point at the start of the new paragraph
+  }
+});
+
+document.getElementById("commentInput").addEventListener("input", function () {
+  if (this.value.length === 1 && this.value !== "•") {
+    this.value = "• " + this.value;
+  }
+});
 
 

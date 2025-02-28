@@ -96,14 +96,17 @@ button {
   font-size: x-large;
   cursor: pointer;
   border-radius: 20px;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .fishing-container button:hover {
   background: #005bb5;
+  transform: scale(1.1);
 }
 
 .delete-all {
   background: red;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
 
@@ -137,6 +140,7 @@ li {
   border-radius: 5px;
   padding: auto;
   margin-left: 50px;
+  margin-right: 30px;
 }
 
 .delete-btn {
@@ -148,10 +152,12 @@ li {
   margin-left: 20px;
   border-color: black;
   border-width: 2px;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .fishing-container .delete-btn:hover {
   background: rgb(229, 8, 8);
+  transform: scale(1.2);
 }
 
 #fishImageContainer {
@@ -376,6 +382,100 @@ p {
   font-size: x-large;
 }
 
+
+    /* Popup styling */
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      background: white;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      display: none;
+      z-index: 1000;
+  }
+
+  .popup .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ccc;
+    color: #333;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s ease;
+    border: none;
+}
+
+.popup .close-btn:hover {
+    background: #bbb;
+    transform: scale(1.2);
+}
+
+  .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 150%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      z-index: 999;
+  }
+
+  textarea {
+      width: 100%;
+      height: 150px;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      resize: vertical;
+  }
+
+ #saveComment {
+  display: block;
+  width: 50%;
+  padding: 10px;
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-left: 25%;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+#saveComment:hover {
+      background: #213c88;
+      transform: scale(1.2);
+  }
+
+  .popup h1{
+     padding-bottom: 30px;
+     padding-top: 20px;
+     margin-top: 10px;
+  }
+
+  .add-comment-btn{
+    font-size: 20px;
+  }
+
+  #commentInput{
+    font-size: medium;
+  }
 
 
 
