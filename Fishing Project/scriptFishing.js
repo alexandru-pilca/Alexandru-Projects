@@ -1,3 +1,4 @@
+//Object to store all the elements
 const fishingElements = {
   trips: JSON.parse(localStorage.getItem("trips")) || [],
   tripDate: document.getElementById("tripDate"),
@@ -40,7 +41,8 @@ function displayTrips() {
       `;
     fishingElements.tripList.appendChild(li);
   });
-
+ 
+  // Update the trip count
   fishingElements.tripCount.textContent = fishingElements.trips.length;
 }
 
@@ -94,6 +96,8 @@ fishingElements.addTripBtn.addEventListener("click", () => {
 
   const selectedOption = fishingElements.fishSpecies.options[fishingElements.fishSpecies.selectedIndex];
   const imgSrc = selectedOption.getAttribute("data-img");
+  
+  // Check if an image was uploaded if not use the default image
   let uploadedImage = "";
 
   if (fishingElements.imageInput.files.length > 0) {
@@ -108,6 +112,7 @@ fishingElements.addTripBtn.addEventListener("click", () => {
   }
 });
 
+// Function to save the trip to the trips array
 function saveTrip(imgSrc, uploadedImage) {
   fishingElements.trips.push({
       date: fishingElements.tripDate.value,
@@ -164,6 +169,7 @@ document.getElementById("commentInput").addEventListener("keydown", function (ev
   }
 });
 
+// Add bullet points when pasting text in the comment input
 document.getElementById("commentInput").addEventListener("input", function () {
   if (this.value.length === 1 && this.value !== "•") {
     this.value = "• " + this.value;
