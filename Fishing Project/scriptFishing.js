@@ -30,7 +30,7 @@ function displayTrips() {
     const li = document.createElement("li");
     li.innerHTML = `
           <div class="trip-info">
-              <span>${trip.date} - <b>${trip.location}</b> caught a <b>${trip.fish}</b> weighing <b>${trip.weight} kg</b> on <b>${trip.bait}</b></span>
+              <span><b>Date: </b>${trip.date} - <b>${trip.location}</b> caught a <b>${trip.fish}</b> weighing <b>${trip.weight} kg</b> on <b>${trip.bait}</b></span>
               <img src="${trip.uploadedImage || trip.image}" alt="${trip.fish}" class="fish-icon">
           </div>
          
