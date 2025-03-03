@@ -14,9 +14,9 @@ const fishingElements = {
   saveCommentBtn: document.getElementById("saveComment"),
   popup: document.getElementById("popup-1"),
   imageInput: document.getElementById("imageUpload"),
-  imagePopup : document.getElementById("imagePopup"),
-popupImage : document.getElementById("popupImage"),
-closeImagePopup : document.getElementById("closeImagePopup"),
+  imagePopup: document.getElementById("imagePopup"),
+  popupImage: document.getElementById("popupImage"),
+  closeImagePopup: document.getElementById("closeImagePopup"),
 
 };
 
@@ -45,7 +45,7 @@ function displayTrips() {
       `;
     fishingElements.tripList.appendChild(li);
   });
- 
+
   // Update the trip count
   fishingElements.tripCount.textContent = fishingElements.trips.length;
 }
@@ -100,32 +100,32 @@ fishingElements.addTripBtn.addEventListener("click", () => {
 
   const selectedOption = fishingElements.fishSpecies.options[fishingElements.fishSpecies.selectedIndex];
   const imgSrc = selectedOption.getAttribute("data-img");
-  
+
   // Check if an image was uploaded if not use the default image
   let uploadedImage = "";
 
   if (fishingElements.imageInput.files.length > 0) {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-          uploadedImage = e.target.result;
-          saveTrip(imgSrc, uploadedImage);
-      };
-      reader.readAsDataURL(fishingElements.imageInput.files[0]);
-  } else {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      uploadedImage = e.target.result;
       saveTrip(imgSrc, uploadedImage);
+    };
+    reader.readAsDataURL(fishingElements.imageInput.files[0]);
+  } else {
+    saveTrip(imgSrc, uploadedImage);
   }
 });
 
 // Function to save the trip to the trips array
 function saveTrip(imgSrc, uploadedImage) {
   fishingElements.trips.push({
-      date: fishingElements.tripDate.value,
-      location: fishingElements.locationInput.value.trim(),
-      fish: fishingElements.fishSpecies.value,
-      weight: fishingElements.weightInput.value,
-      bait: fishingElements.baitInput.value,
-      image: imgSrc,
-      uploadedImage: uploadedImage || "",
+    date: fishingElements.tripDate.value,
+    location: fishingElements.locationInput.value.trim(),
+    fish: fishingElements.fishSpecies.value,
+    weight: fishingElements.weightInput.value,
+    bait: fishingElements.baitInput.value,
+    image: imgSrc,
+    uploadedImage: uploadedImage || "",
   });
 
   saveTrips();
