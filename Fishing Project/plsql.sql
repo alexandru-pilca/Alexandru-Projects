@@ -74,7 +74,8 @@ create table fishing_trips (
    location     varchar2(100) not null,
    fish_species varchar2(100) not null,
    weight       number not null,
-   image_url    varchar2(500)
+   image_url    varchar2(500),
+   image_uploaded VARCHAR2(400)
 );
 
 create sequence fishing_seq start with 1 increment by 1;
@@ -172,3 +173,24 @@ begin
    commit;
    dbms_output.put_line('Additional info added successfully.');
 end ins_info;  
+
+
+create or replace procedure image_uploaded(
+   p_id NUMBER,
+   p_image_uploaded VARCHAR2,
+   p_image_url VARCHAR2
+) IS
+BEGIN
+
+   if p_image_uploaded is NULL THEN
+   image_url :=p_image_url;
+   else
+   image_url :=p_image_uploaded;
+   end if;
+
+   UPDATE fishing_trips
+      SET image_uploaded = p_image_uploaded
+    WHERE id = p_id;
+   COMMIT;
+   DBMS_OUTPUT.PUT_LINE('Image uploaded successfully.');
+END image_uploaded;
