@@ -101,7 +101,7 @@ fishingElements.addTripBtn.addEventListener("click", () => {
     weight: fishingElements.weightInput.value,
     bait: fishingElements.baitInput.value,
     image: imgSrc,
-    comment: "", // Initialize comment as empty
+    comment: "", 
   });
 
   saveTrips();
