@@ -12,6 +12,7 @@ const fishingElements = {
   commentInput: document.getElementById("commentInput"),
   saveCommentBtn: document.getElementById("saveComment"),
   popup: document.getElementById("popup-1"),
+  imageInput: document.getElementById("imageUpload"),
 };
 
 let currentTripIndex = null; // Track which trip is being edited
@@ -29,7 +30,7 @@ function displayTrips() {
     li.innerHTML = `
           <div class="trip-info">
               <span>${trip.date} - <b>${trip.location}</b> caught a <b>${trip.fish}</b> weighing <b>${trip.weight} kg</b> on <b>${trip.bait}</b></span>
-              <img src="${trip.image}" alt="${trip.fish}" class="fish-icon">
+              <img src="${trip.uploadedImage || trip.image}" alt="${trip.fish}" class="fish-icon">
           </div>
          
           <button class="add-comment-btn" data-index="${index}">View/Add Trip Info</button>
@@ -93,19 +94,35 @@ fishingElements.addTripBtn.addEventListener("click", () => {
 
   const selectedOption = fishingElements.fishSpecies.options[fishingElements.fishSpecies.selectedIndex];
   const imgSrc = selectedOption.getAttribute("data-img");
+  let uploadedImage = "";
 
+  if (fishingElements.imageInput.files.length > 0) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+          uploadedImage = e.target.result;
+          saveTrip(imgSrc, uploadedImage);
+      };
+      reader.readAsDataURL(fishingElements.imageInput.files[0]);
+  } else {
+      saveTrip(imgSrc, uploadedImage);
+  }
+});
+
+function saveTrip(imgSrc, uploadedImage) {
   fishingElements.trips.push({
-    date: fishingElements.tripDate.value,
-    location: fishingElements.locationInput.value.trim(),
-    fish: fishingElements.fishSpecies.value,
-    weight: fishingElements.weightInput.value,
-    bait: fishingElements.baitInput.value,
-    image: imgSrc,
-    comment: "", 
+      date: fishingElements.tripDate.value,
+      location: fishingElements.locationInput.value.trim(),
+      fish: fishingElements.fishSpecies.value,
+      weight: fishingElements.weightInput.value,
+      bait: fishingElements.baitInput.value,
+      image: imgSrc,
+      uploadedImage: uploadedImage || "",
   });
 
   saveTrips();
   displayTrips();
+
+
 
   // Reset input fields
   fishingElements.tripDate.value = "";
@@ -113,7 +130,8 @@ fishingElements.addTripBtn.addEventListener("click", () => {
   fishingElements.fishSpecies.value = "";
   fishingElements.weightInput.value = "";
   fishingElements.baitInput.value = "";
-});
+  fishingElements.imageInput.value = "";
+};
 
 // Event listener for deleting a trip
 fishingElements.tripList.addEventListener("click", (e) => {
@@ -163,3 +181,4 @@ document.addEventListener("click", (e) => {
 fishingElements.popup.addEventListener("click", (e) => {
   e.stopPropagation();
 });
+
