@@ -14,6 +14,10 @@ const fishingElements = {
   saveCommentBtn: document.getElementById("saveComment"),
   popup: document.getElementById("popup-1"),
   imageInput: document.getElementById("imageUpload"),
+  imagePopup : document.getElementById("imagePopup"),
+popupImage : document.getElementById("popupImage"),
+closeImagePopup : document.getElementById("closeImagePopup"),
+
 };
 
 let currentTripIndex = null; // Track which trip is being edited
@@ -188,3 +192,22 @@ fishingElements.popup.addEventListener("click", (e) => {
   e.stopPropagation();
 });
 
+// Function to open the image popup
+function openImagePopup(imgSrc) {
+  fishingElements.popupImage.src = imgSrc;
+  fishingElements.imagePopup.style.display = "flex";
+}
+
+// Event listener to open the image popup
+fishingElements.tripList.addEventListener("click", (e) => {
+  if (e.target.classList.contains("fish-icon")) {
+    openImagePopup(e.target.src);
+  }
+});
+
+// close image popup
+fishingElements.imagePopup.addEventListener("click", (e) => {
+  if (e.target === fishingElements.imagePopup || e.target === fishingElements.closeImagePopup) {
+    fishingElements.imagePopup.style.display = "none";
+  }
+});
