@@ -1,4 +1,4 @@
-
+// Object to store all the elements
 const elements = {
     cityInput: document.querySelector('.city-input'),
     searchBtn: document.querySelector('.search-btn'),
@@ -16,6 +16,7 @@ const elements = {
     forecastItemsContainer: document.querySelector('.forecast-items-container')
 };
 
+// Event listeners for search button and input field
 elements.searchBtn.addEventListener('click', () => {
     if (elements.cityInput.value.trim() !== '') {
         updateWeatherInfo(elements.cityInput.value);
@@ -32,12 +33,14 @@ elements.cityInput.addEventListener('keydown', (event) => {
     }
 });
 
+// Function to fetch data from the OpenWeatherMap API
 async function getFetchData(endPoint, city) {
     const apiUrl = `https://api.openweathermap.org/data/2.5/${endPoint}?q=${city}&appid=${elements.apiKey}&units=metric`;
     const response = await fetch(apiUrl);
     return response.json();
 }
 
+// Function to get the weather icon based on the weather condition
 function getWeatherIcon(id, sunrise, sunset) {
     const currentTime = new Date().getTime() / 1000;// Get the current time in seconds
     const isNight = currentTime < sunrise || currentTime > sunset; // Check if it's night
@@ -62,12 +65,15 @@ if (id === 800) return 'clear.svg';
 return 'cloud.png';
 }
 
+
+// Function to get the current date in the format "Wed, 01 Jan"
 function getCurrentDate() {
     const currentDate = new Date();
     const options = { weekday: 'short', day: '2-digit', month: 'short' };
     return currentDate.toLocaleDateString('en-GB', options);
 }
 
+// Function to update the weather information
 async function updateWeatherInfo(city) {
     const weatherData = await getFetchData('weather', city);
 
@@ -101,6 +107,7 @@ async function updateWeatherInfo(city) {
     showDisplaySection(elements.weatherInfoSection);
 }
 
+// Function to update the forecast information
 async function updateForecastInfo(city) {
     const forecastData = await getFetchData('forecast', city);
     const todayDate = new Date().toISOString().split('T')[0]; // Get today's date
@@ -129,6 +136,7 @@ async function updateForecastInfo(city) {
     });
 }
 
+// Function to update the forecast items
 function updateForecastItems(weatherData) {
     const {
         dt_txt: date,
@@ -152,6 +160,7 @@ function updateForecastItems(weatherData) {
     elements.forecastItemsContainer.insertAdjacentHTML('beforeend', forecastItem);
 }
 
+// Function to show/hide sections
 function showDisplaySection(section) {
     [elements.weatherInfoSection, elements.searchCitySection, elements.notFound].forEach(sec => {
         if (sec) sec.style.display = 'none';
