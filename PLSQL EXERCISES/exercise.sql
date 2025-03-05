@@ -1316,4 +1316,46 @@ INSERT INTO transactions (transaction_id, from_account_id, to_account_id, amount
       end;
 
 
+
+--37. Hierarchical Query using CONNECT BY and START WITH
+
+CREATE TABLE departments (
+    id INT PRIMARY KEY,
+    name VARCHAR(100),
+    dep_type VARCHAR(50),
+    parent_id INT NULL, 
+);
+
+-- Top-Level Departments (No Parent)
+INSERT INTO departments (id, name, dep_type, parent_id) VALUES (1, 'Head Office', 'Corporate', NULL);
+INSERT INTO departments (id, name, dep_type, parent_id) VALUES (2,  'Engineering', 'IT', NULL);
+INSERT INTO departments (id, name, dep_type, parent_id) VALUES (3, 'Manufacturing', 'Operations', NULL);
+
+-- Sub-Departments under Head Office
+INSERT INTO departments (id, name, dep_type, parent_id) VALUES (4, 'HR', 'Support', 1);
+INSERT INTO departments (id, name, dep_type, parent_id) VALUES (5, 'Finance', 'Support', 1);
+INSERT INTO departments (id, name, dep_type, parent_id) VALUES (6, 'IT', 'Support', 1);
+
+-- Sub-Departments under Engineering
+INSERT INTO departments (id, name, dep_type, parent_id) VALUES (7, 'Mechanical Engineering', 'Technical', 2);
+INSERT INTO departments (id, name, dep_type, parent_id) VALUES (8, 'Electrical Engineering', 'Technical', 2);
+
+-- Sub-Departments under Manufacturing
+INSERT INTO departments (id, name, dep_type, parent_id) VALUES (9, 'Assembly', 'Production', 3);
+INSERT INTO departments (id, name, dep_type, parent_id) VALUES (10, 'Quality Control', 'Production', 3);
+
+
+
+SELECT 
+    LEVEL AS hierarchy_level,
+    LPAD(' ', LEVEL * 3) || name AS department_name, 
+    dep_type, 
+    parent_id
+FROM departments
+START WITH parent_id IS NULL
+CONNECT BY PRIOR id = parent_id
+ORDER SIBLINGS BY name;
+
+
+
       
