@@ -1358,4 +1358,30 @@ ORDER SIBLINGS BY name;
 
 
 
+
+
+SELECT 
+    LEVEL AS hierarchy_level,  
+    aosp.opp_id,
+    aosp.main_opp_id,
+    aosp.opp_type,
+    LPAD(' ', LEVEL * 3) || aosp.opp_name AS indented_opp_name, 
+    wsh.sales_price_reporting AS reporting_currency_amount,
+    wsh.reporting_cur_code AS reporting_currency,
+    WEBCRM_UTILS.get_exchangerate (
+        p_opp_id           => aosp.opp_id,
+        p_cur_code         => wsh.cur_code,
+        p_is_reporting_cur => 'Y',
+        p_allow_insert     => 'N'
+    ) AS exchange_rate,
+    wsh.sales_price AS quotation_currency_amount,
+    wsh.cur_code AS quotation_currency
+FROM apx_opps_single_project aosp
+JOIN worksheets wsh ON wsh.opp_id = aosp.opp_id AND wsh.active = 'Y'
+START WITH aosp.main_opp_id = :P3100_OPP_ID  
+CONNECT BY PRIOR aosp.opp_id = aosp.main_opp_id  
+ORDER BY LEVEL, aosp.opp_id;
+
+
+
       
